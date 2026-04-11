@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Outpacing Uncertainty — Goldman Sachs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --accent: #c8a96e;
+      --accent-dim: rgba(200,169,110,0.10);
+      --text: #f0ece4;
+      --muted: #7a7570;
+      --correct: #4a9268;
+      --wrong: #9e4a4a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.35;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    /* ── Header ── */
+    header {
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      margin-top: 0.5rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      margin: 1.2rem 0 0;
+    }
+
+    /* ── Progress ── */
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s 0.15s ease both;
+    }
+
+    .progress-bar-fill {
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+
+    /* ── Scoreboard ── */
+    .score-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .score-pill {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .score-pill span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      display: block;
+      color: var(--text);
+      margin-top: 0.15rem;
+    }
+
+    .score-pill.correct-pill span { color: var(--correct); }
+    .score-pill.wrong-pill span { color: var(--wrong); }
+
+    /* ── Flashcard ── */
+    .card-area {
+      animation: fadeUp 0.6s 0.25s ease both;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .card.revealed { border-color: #333; }
+
+    .card-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .card-question {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 400;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .reveal-hint {
+      margin-top: 1.5rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: none;
+      background: none;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      transition: color 0.2s;
+    }
+    .reveal-hint:hover { color: var(--accent); }
+
+    /* ── Answer panel ── */
+    .answer-panel {
+      margin-top: 1px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-top: none;
+      padding: 1.5rem 2rem 2rem;
+      display: none;
+    }
+
+    .answer-panel.visible { display: block; animation: slideDown 0.3s ease; }
+
+    .answer-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .answer-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .answer-note {
+      margin-top: 0.75rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* ── Verdict buttons ── */
+    .verdict-row {
+      display: flex;
+      gap: 1px;
+      margin-top: 1px;
+      display: none;
+    }
+    .verdict-row.visible { display: flex; }
+
+    .verdict-btn {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      border: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .verdict-btn:hover { opacity: 0.85; }
+
+    .verdict-btn.got-it {
+      background: var(--correct);
+      color: #fff;
+    }
+    .verdict-btn.missed {
+      background: var(--wrong);
+      color: #fff;
+    }
+
+    /* ── Navigation ── */
+    .nav-row {
+      display: flex;
+      gap: 1px;
+      margin-top: 2rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      text-align: center;
+    }
+    .nav-btn:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+    }
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .nav-btn.primary {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+    }
+    .nav-btn.primary:hover { opacity: 0.9; }
+
+    /* ── Completion screen ── */
+    .completion {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .completion.visible { display: block; }
+
+    .completion-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .completion h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .completion .final-score {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .completion .big-score {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <a class="back-link" href="index.html">← Back to all decks</a>
+    <p class="eyebrow">Goldman Sachs · Semafor</p>
+    <h1>Outpacing Uncertainty</h1>
+    <p class="subtitle">Roundtable with John Waldron, President & COO · Washington DC</p>
+    <div class="divider"></div>
+  </header>
+
+  <!-- Quiz UI -->
+  <div id="quiz">
+    <div class="progress-row">
+      <span id="card-counter">Card 1 of 28</span>
+      <span id="card-category"></span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+
+    <div class="score-row">
+      <div class="score-pill correct-pill">
+        Correct<span id="score-correct">0</span>
+      </div>
+      <div class="score-pill wrong-pill">
+        Missed<span id="score-wrong">0</span>
+      </div>
+      <div class="score-pill">
+        Remaining<span id="score-remaining">28</span>
+      </div>
+    </div>
+
+    <div class="card-area">
+      <div class="card" id="card">
+        <div>
+          <div class="card-tag" id="card-tag"></div>
+          <div class="card-question" id="card-question"></div>
+        </div>
+        <button class="reveal-hint" id="reveal-btn" onclick="revealAnswer()">▸ &nbsp;Reveal answer</button>
+      </div>
+
+      <div class="answer-panel" id="answer-panel">
+        <div class="answer-label">Answer</div>
+        <div class="answer-text" id="answer-text"></div>
+        <div class="answer-note" id="answer-note"></div>
+      </div>
+
+      <div class="verdict-row" id="verdict-row">
+        <button class="verdict-btn got-it" onclick="recordVerdict(true)">✓ &nbsp;Got it</button>
+        <button class="verdict-btn missed" onclick="recordVerdict(false)">✗ &nbsp;Missed it</button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" id="prev-btn" onclick="prevCard()" disabled>← Prev</button>
+      <button class="nav-btn" id="next-btn" onclick="nextCard()">Next →</button>
+    </div>
+  </div>
+
+  <!-- Completion -->
+  <div class="completion" id="completion">
+    <div class="completion-icon">◈</div>
+    <h2>Deck Complete</h2>
+    <p class="final-score">Your final score</p>
+    <span class="big-score" id="final-pct"></span>
+    <p class="final-score" id="final-detail"></p>
+    <div class="nav-row" style="margin-top:2.5rem; justify-content:center; max-width:360px; margin-left:auto; margin-right:auto;">
+      <button class="nav-btn primary" onclick="restartQuiz()">Restart Deck</button>
+      <a class="nav-btn" href="index.html" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">All Decks</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const cards = [
+  // ── EVENT OVERVIEW ──
+  {
+    tag: "Event Overview",
+    question: "What is the title of this Goldman Sachs roundtable?",
+    answer: "\"Outpacing Uncertainty\"",
+    note: "A discussion on how business leaders navigate a rapidly changing macro environment."
+  },
+  {
+    tag: "Event Overview",
+    question: "Who is the Goldman Sachs executive hosting and giving remarks at this roundtable?",
+    answer: "John Waldron, President & COO of Goldman Sachs Group",
+    note: "He gives opening remarks at 11:45 a.m. and closing remarks at 12:55 p.m."
+  },
+  {
+    tag: "Event Overview",
+    question: "Who moderates the roundtable discussion?",
+    answer: "Liz Hoffman, Business & Finance Editor for Semafor",
+    note: "She leads the conversation from 12:00 p.m. through the wrap-up at 12:50 p.m."
+  },
+  {
+    tag: "Event Overview",
+    question: "Where is the roundtable held?",
+    answer: "Blue Willow, 3rd Floor — 950 New York Ave NW, Washington, DC 20001",
+    note: null
+  },
+
+  // ── THEMES & QUESTIONS ──
+  {
+    tag: "Themes",
+    question: "What three macro forces frame this roundtable's central discussion?",
+    answer: "Technology disruption, policy shifts, and geopolitical risk",
+    note: "Despite these pressures, the broader investment landscape is described as remaining constructive."
+  },
+  {
+    tag: "Themes",
+    question: "What is Guidepost Question #1?",
+    answer: "Which factor is having the greatest impact on your business today: technology disruption, policy shifts, or geopolitical risk?",
+    note: null
+  },
+  {
+    tag: "Themes",
+    question: "What shift in global architecture does Guidepost Question #2 ask leaders to address?",
+    answer: "The transition away from a unipolar global architecture and how it is affecting specific markets and regional economies",
+    note: null
+  },
+  {
+    tag: "Themes",
+    question: "What tension does Guidepost Question #3 ask leaders to navigate?",
+    answer: "Balancing historical cost efficiency against the \"cost of resilience\" — driven by tariffs, export controls, and supply chain duplication",
+    note: null
+  },
+
+  // ── ATTENDEES: Finance & Investment ──
+  {
+    tag: "Attendee",
+    question: "What is John Waldron's role at Goldman Sachs?",
+    answer: "President & COO (Chief Operating Officer) of the Goldman Sachs Group",
+    note: null
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Jenny Johnson and what organization does she lead?",
+    answer: "President & CEO of Franklin Templeton, overseeing approximately $1.6 trillion in assets under management",
+    note: "She has been at Franklin Templeton for over 35 years and became CEO in February 2020."
+  },
+  {
+    tag: "Attendee",
+    question: "Who co-founded KKR and what is his current title?",
+    answer: "Henry Kravis — Co-Founder & Co-Executive Chairman of KKR (Kohlberg Kravis Roberts)",
+    note: "He co-founded KKR in 1976 and is widely credited as a pioneer of the leveraged buyout industry."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Patrick Healy and what firm does he run?",
+    answer: "CEO of Hellman & Friedman (H&F), a private equity firm — he has been with H&F since 1994",
+    note: "He is also Chairman of the firm's Compensation Committee and leads its London office."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is George Walker and how large is the firm he leads?",
+    answer: "Chairman & CEO of Neuberger Berman, which manages approximately $558 billion across equities, fixed income, private equity, and hedge fund portfolios",
+    note: "He has served as CEO for 17 years. Neuberger Berman has been named #1 Best Place to Work in Money Management by Pensions & Investments."
+  },
+  {
+    tag: "Attendee",
+    question: "What role did Henry Paulson hold in the U.S. government, and what does he lead today?",
+    answer: "He served as the 74th Secretary of the Treasury under President George W. Bush; today he is Chairman of the Paulson Institute",
+    note: "He also had a 32-year career at Goldman Sachs, serving as its chairman and CEO."
+  },
+
+  // ── ATTENDEES: Industry ──
+  {
+    tag: "Attendee",
+    question: "Who is José Muñoz and what historic distinction does he hold at Hyundai?",
+    answer: "President & CEO of Hyundai Motor Company — the first non-Korean to be named global CEO of a major Korean conglomerate",
+    note: "He oversees Hyundai's global business and the Hyundai and Genesis brands."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Scott Strazik and what is GE Vernova's mission?",
+    answer: "CEO of GE Vernova, whose mission is to electrify and decarbonize the electric power sector while delivering reliable and sustainable electricity",
+    note: null
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Pedro Azagra and what company does he lead?",
+    answer: "CEO of Iberdrola, appointed in June 2025; previously CEO of Iberdrola's U.S. subholding Avangrid",
+    note: "He joined Iberdrola in 1997 and has overseen the company's mergers, acquisitions, and international expansion."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Dan Schulman, and what major role did he hold before becoming CEO of Verizon?",
+    answer: "He became CEO of Verizon in October 2025; prior to that he was President & CEO of PayPal",
+    note: "He was also the founding CEO of Virgin Mobile USA earlier in his career."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Patrice Louvet and how long did he spend at Procter & Gamble before joining Ralph Lauren?",
+    answer: "President & CEO of Ralph Lauren — he spent nearly three decades at Procter & Gamble before joining Ralph Lauren in 2017",
+    note: "He led global brands including Gillette, Pantene, and SK-II at P&G."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Dan O'Day and what company does he lead?",
+    answer: "Chairman of the Board and CEO of Gilead Sciences — he joined in March 2019",
+    note: "Prior to Gilead, he served as CEO of Roche Pharmaceuticals after a 30+ year career there."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Jacek Olczak and what transformation is he driving at PMI?",
+    answer: "Group CEO of PMI (appointed January 2026), driving PMI's transformation toward a smoke-free future and expanding into wellness and healthcare",
+    note: "He started at PMI in 1993 and served as CFO and COO before becoming CEO in May 2021."
+  },
+
+  // ── ATTENDEES: Other ──
+  {
+    tag: "Attendee",
+    question: "Who is Jorge Paulo Lemann and what major consumer brands does he have a stake in?",
+    answer: "Swiss-Brazilian entrepreneur and founder of the Lemann Foundation; controlling shareholder of Anheuser-Busch InBev, Kraft Heinz, and Restaurant Brands International (Burger King, Popeyes, Tim Hortons)",
+    note: "He earned his bachelor's degree from Harvard in 1961 and co-founded 3G Capital."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Guy Gecht and what company does he currently chair?",
+    answer: "Chairman of the Board of Logitech — he joined the board in 2019 and served as Interim CEO from June to December 2023",
+    note: "He previously spent 18 years as CEO of Electronics for Imaging (EFI)."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Mark Lazarus and what is Versant?",
+    answer: "CEO of Versant, a media and entertainment company comprising cable networks including USA Network, CNBC, E!, SYFY, and Golf Channel, plus digital assets like Fandango and Rotten Tomatoes",
+    note: "Prior to Versant, he was Chairman of NBCUniversal Media Group, overseeing the Paris 2024 Summer Olympics coverage."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Christine Barton and what is her specialty at BCG?",
+    answer: "Managing Director & Senior Partner at BCG — she focuses on marketing, sales, and consumer insights, and serves as the North American advisor for BCG's Center for Customer Insight",
+    note: null
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Kellyanne Conway and what firm does she currently run?",
+    answer: "Founder of KAConsulting LLC, providing strategic counsel on messaging, branding, and crisis communications — she previously served as Senior Counselor to President Trump from 2017 to 2020",
+    note: "She also founded The Polling Company, Inc./WomanTrend earlier in her career."
+  },
+  {
+    tag: "Attendee",
+    question: "Who is Emma Walmsley and what major company did she previously lead?",
+    answer: "Former CEO of GSK (GlaxoSmithKline), where she served for 9 years until December 2025 — she is now a Board Director of Microsoft",
+    note: "Prior to GSK, she spent 17 years at L'Oréal across Paris, London, New York, and Shanghai."
+  },
+  {
+    tag: "Attendee",
+    question: "What energy sector CEO from Spain attends this roundtable?",
+    answer: "Pedro Azagra, CEO of Iberdrola — a global energy company. He holds degrees from Universidad Pontificia Comillas (ICADE) and an MBA from the University of Chicago.",
+    note: null
+  },
+];
+
+let current = 0;
+let scores = { correct: 0, wrong: 0 };
+let verdicts = new Array(cards.length).fill(null);
+let revealed = false;
+
+function render() {
+  const c = cards[current];
+  document.getElementById('card-counter').textContent = `Card ${current + 1} of ${cards.length}`;
+  document.getElementById('card-category').textContent = c.tag.toUpperCase();
+  document.getElementById('card-tag').textContent = c.tag;
+  document.getElementById('card-question').textContent = c.question;
+  document.getElementById('answer-text').textContent = c.answer;
+  const noteEl = document.getElementById('answer-note');
+  noteEl.textContent = c.note || '';
+  noteEl.style.display = c.note ? 'block' : 'none';
+
+  // Progress
+  const pct = ((current) / cards.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+
+  // Scores
+  document.getElementById('score-correct').textContent = scores.correct;
+  document.getElementById('score-wrong').textContent = scores.wrong;
+  document.getElementById('score-remaining').textContent = cards.length - scores.correct - scores.wrong;
+
+  // Hide answer
+  hideAnswer();
+
+  // Nav
+  document.getElementById('prev-btn').disabled = current === 0;
+  const nextBtn = document.getElementById('next-btn');
+  if (current === cards.length - 1) {
+    nextBtn.textContent = 'Finish ✓';
+    nextBtn.classList.add('primary');
+  } else {
+    nextBtn.textContent = 'Next →';
+    nextBtn.classList.remove('primary');
+  }
+}
+
+function hideAnswer() {
+  revealed = false;
+  document.getElementById('answer-panel').classList.remove('visible');
+  document.getElementById('verdict-row').classList.remove('visible');
+  document.getElementById('reveal-btn').style.display = 'inline-flex';
+}
+
+function revealAnswer() {
+  if (revealed) return;
+  revealed = true;
+  document.getElementById('answer-panel').classList.add('visible');
+  if (verdicts[current] === null) {
+    document.getElementById('verdict-row').classList.add('visible');
+  }
+  document.getElementById('reveal-btn').style.display = 'none';
+}
+
+function recordVerdict(correct) {
+  if (verdicts[current] !== null) return;
+  verdicts[current] = correct;
+  if (correct) scores.correct++; else scores.wrong++;
+  document.getElementById('verdict-row').classList.remove('visible');
+  document.getElementById('score-correct').textContent = scores.correct;
+  document.getElementById('score-wrong').textContent = scores.wrong;
+  document.getElementById('score-remaining').textContent = cards.length - scores.correct - scores.wrong;
+}
+
+function nextCard() {
+  if (current === cards.length - 1) {
+    showCompletion();
+    return;
+  }
+  current++;
+  render();
+}
+
+function prevCard() {
+  if (current === 0) return;
+  current--;
+  render();
+}
+
+function showCompletion() {
+  document.getElementById('quiz').style.display = 'none';
+  const comp = document.getElementById('completion');
+  comp.classList.add('visible');
+  const pct = Math.round((scores.correct / cards.length) * 100);
+  document.getElementById('final-pct').textContent = pct + '%';
+  document.getElementById('final-detail').textContent = `${scores.correct} correct · ${scores.wrong} missed · ${cards.length - scores.correct - scores.wrong} skipped`;
+}
+
+function restartQuiz() {
+  current = 0;
+  scores = { correct: 0, wrong: 0 };
+  verdicts = new Array(cards.length).fill(null);
+  document.getElementById('completion').classList.remove('visible');
+  document.getElementById('quiz').style.display = 'block';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
