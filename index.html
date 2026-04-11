@@ -38,7 +38,10 @@
     .deck-link:hover { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.4); transform: translateX(4px); }
     .deck-link:hover::before { transform: scaleY(1); }
     .deck-link:active { transform: translateX(2px); }
-    .deck-num { font-size: 10px; letter-spacing: 0.18em; color: var(--gold); min-width: 34px; }
+    .cal-icon { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 48px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); border-radius: 8px; padding: 5px 6px; flex-shrink: 0; }
+    .cal-month { font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); line-height: 1; }
+    .cal-day { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--cream); line-height: 1.1; }
+    .cal-time { font-size: 8px; color: var(--text-dim); letter-spacing: 0.06em; margin-top: 2px; line-height: 1; }
     .deck-text { flex: 1; }
     .deck-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 400; color: var(--cream); }
     .deck-source { font-size: 10px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; opacity: 0.8; }
@@ -89,7 +92,7 @@
 
   <ul class="deck-list">
     <li><a class="deck-link" href="Semaforum.html">
-      <span class="deck-num">01 —</span>
+      <div class="cal-icon"><div class="cal-month">Apr</div><div class="cal-day">14</div><div class="cal-time">7:30am</div></div>
       <div class="deck-text">
         <div class="deck-title">Future of Capitalism</div>
         <div class="deck-source">Semaforum</div>
@@ -98,7 +101,7 @@
       <span class="deck-arrow">→</span>
     </a></li>
     <li><a class="deck-link" href="bcg-ceos-take-the-lead-on-ai.html">
-      <span class="deck-num">02 —</span>
+      <div class="cal-icon"><div class="cal-month">Apr</div><div class="cal-day">14</div><div class="cal-time">11:15am</div></div>
       <div class="deck-text">
         <div class="deck-title">CEOs Take the Lead on AI</div>
         <div class="deck-source">BCG Lunch</div>
@@ -107,11 +110,20 @@
       <span class="deck-arrow">→</span>
     </a></li>
     <li><a class="deck-link" href="goldman-outpacing-uncertainty.html">
-      <span class="deck-num">03 —</span>
+      <div class="cal-icon"><div class="cal-month">Apr</div><div class="cal-day">15</div><div class="cal-time">11:30am</div></div>
       <div class="deck-text">
         <div class="deck-title">Outpacing Uncertainty</div>
         <div class="deck-source">Goldman Sachs</div>
         <div class="deck-meta">Wed Apr 15 · Conrad Hotel · Blue Willow Room</div>
+      </div>
+      <span class="deck-arrow">→</span>
+    </a></li>
+    <li><a class="deck-link" href="#">
+      <div class="cal-icon"><div class="cal-month">Apr</div><div class="cal-day">15</div><div class="cal-time">7:00pm</div></div>
+      <div class="deck-text">
+        <div class="deck-title">CEO Dinner</div>
+        <div class="deck-source">Jamie Greer</div>
+        <div class="deck-meta">Wed Apr 15 · 7:00pm · National Archives</div>
       </div>
       <span class="deck-arrow">→</span>
     </a></li>
@@ -367,7 +379,7 @@
     </div>
   </div>
 
-  <footer>April 2026 &nbsp;·&nbsp; 3 decks · 15 interviews</footer>
+  <footer>April 2026 &nbsp;·&nbsp; 4 decks · 15 interviews</footer>
 
 </div>
 </body>
