@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+  <title>CEO Program</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1c2d40;--gold:#c9a84c;--cream:#f4ede0;--text-light:#d6cfc3;--text-dim:#8a8278}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{background:var(--navy);color:var(--cream);font-family:'DM Sans',sans-serif}
+    body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1.5rem 4rem}
+    .container{width:100%;max-width:540px}
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;margin-bottom:1.5rem;transition:color .2s}
+    .back-link:hover{color:var(--gold)}
+    .page-header{margin-bottom:2rem;animation:fadeUp .5s ease both}
+    .eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,5vw,1.9rem);font-weight:700;line-height:1.2;color:var(--cream)}
+    .session-meta{margin-top:10px;display:flex;flex-direction:column;gap:3px}
+    .session-time{font-size:12px;color:var(--gold);letter-spacing:.06em}
+    .session-location{font-size:11px;color:var(--text-dim);letter-spacing:.05em}
+    .rule{width:36px;height:2px;background:var(--gold);margin-top:16px}
+    .briefing-banner{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-left:3px solid var(--gold);padding:10px 16px;margin-bottom:1.5rem;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+    .section-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem}
+    .guest-card{background:var(--navy-mid);border:1px solid rgba(201,168,76,.15);padding:18px 20px;margin-bottom:1px;animation:fadeUp .5s ease both}
+    .guest-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(201,168,76,.12)}
+    .guest-photo{width:104px;height:104px;border-radius:50%;background:var(--navy);border:2px solid var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);overflow:hidden;box-shadow:0 0 0 4px rgba(201,168,76,.1)}
+    .guest-photo img{width:100%;height:100%;object-fit:cover;object-position:top center}
+    .guest-meta{flex:1}
+    .guest-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream);line-height:1.2}
+    .guest-title{font-size:12px;color:var(--gold);margin-top:3px;line-height:1.35;opacity:.85}
+    .field-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;margin-top:12px}
+    .field-value{font-size:13px;color:var(--text-light);line-height:1.6}
+    .questions-card{background:var(--navy-mid);border:1px solid rgba(201,168,76,.15);padding:18px 20px;animation:fadeUp .5s .1s ease both}
+    .question-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:var(--text-light);line-height:1.65}
+    .question-item:last-child{border-bottom:none;padding-bottom:0}
+    .question-item.empty{color:var(--text-dim);font-style:italic}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back-link" href="ben-index.html">← All sessions</a>
+  <div class="briefing-banner">Moderator Briefing</div>
+  <div class="page-header">
+    <div class="eyebrow">Mon. April 13</div>
+    <h1>CEO Program</h1>
+    <div class="session-meta">
+      <div class="session-time">3:25 PM</div>
+      <div class="session-location">To be confirmed</div>
+    </div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="section-label">Guests</div>
+  <div class="guest-card">
+    <div class="guest-header">
+      <div class="guest-photo"><img src="data:image/jpeg;base64,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" alt=""></div>
+      <div class="guest-meta">
+        <div class="guest-name">Anne Wojcicki</div>
+        <div class="guest-title">Founder & CEO, 23andMe</div>
+      </div>
+    </div>
+    <div class="field-label">Background</div>
+    <div class="field-value">Founder and CEO of 23andMe, the pioneer in direct-to-consumer genetic testing with 15M+ customers. Former Yale biologist. Secured multiple FDA clearances for DTC genetic health reports. Named to Forbes 100 Most Powerful Women.</div>
+  </div>
+  <div class="section-label" style="margin-top:2rem">Moderator Questions</div>
+  <div class="questions-card">
+    <div class="question-item empty">Questions to be added</div>
+  </div>
+</div>
+</body>
+</html>

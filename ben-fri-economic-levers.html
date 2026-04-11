@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+  <title>Reimagining Global Economic Levers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#0d1b2a;--navy-mid:#162032;--navy-light:#1c2d40;--gold:#c9a84c;--cream:#f4ede0;--text-light:#d6cfc3;--text-dim:#8a8278}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{background:var(--navy);color:var(--cream);font-family:'DM Sans',sans-serif}
+    body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1.5rem 4rem}
+    .container{width:100%;max-width:540px}
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;margin-bottom:1.5rem;transition:color .2s}
+    .back-link:hover{color:var(--gold)}
+    .page-header{margin-bottom:2rem;animation:fadeUp .5s ease both}
+    .eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,5vw,1.9rem);font-weight:700;line-height:1.2;color:var(--cream)}
+    .session-meta{margin-top:10px;display:flex;flex-direction:column;gap:3px}
+    .session-time{font-size:12px;color:var(--gold);letter-spacing:.06em}
+    .session-location{font-size:11px;color:var(--text-dim);letter-spacing:.05em}
+    .rule{width:36px;height:2px;background:var(--gold);margin-top:16px}
+    .briefing-banner{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-left:3px solid var(--gold);padding:10px 16px;margin-bottom:1.5rem;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+    .section-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .75rem}
+    .guest-card{background:var(--navy-mid);border:1px solid rgba(201,168,76,.15);padding:18px 20px;margin-bottom:1px;animation:fadeUp .5s ease both}
+    .guest-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(201,168,76,.12)}
+    .guest-photo{width:104px;height:104px;border-radius:50%;background:var(--navy);border:2px solid var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);overflow:hidden;box-shadow:0 0 0 4px rgba(201,168,76,.1)}
+    .guest-photo img{width:100%;height:100%;object-fit:cover;object-position:top center}
+    .guest-meta{flex:1}
+    .guest-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream);line-height:1.2}
+    .guest-title{font-size:12px;color:var(--gold);margin-top:3px;line-height:1.35;opacity:.85}
+    .field-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;margin-top:12px}
+    .field-value{font-size:13px;color:var(--text-light);line-height:1.6}
+    .questions-card{background:var(--navy-mid);border:1px solid rgba(201,168,76,.15);padding:18px 20px;animation:fadeUp .5s .1s ease both}
+    .question-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:var(--text-light);line-height:1.65}
+    .question-item:last-child{border-bottom:none;padding-bottom:0}
+    .question-item.empty{color:var(--text-dim);font-style:italic}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back-link" href="ben-index.html">← All sessions</a>
+  <div class="page-header">
+    <div class="eyebrow">Fri. April 17</div>
+    <h1>Reimagining Global Economic Levers</h1>
+    <div class="session-meta">
+      <div class="session-time">9:48 – 10:03 AM</div>
+      <div class="session-location">Grand C · The Conrad</div>
+    </div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="section-label">Guests</div>
+  <div class="guest-card">
+    <div class="guest-header">
+      <div class="guest-photo"><img src="data:image/jpeg;base64,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" alt=""></div>
+      <div class="guest-meta">
+        <div class="guest-name">Howard Lutnick</div>
+        <div class="guest-title">Secretary of Commerce, U.S. Department of Commerce</div>
+      </div>
+    </div>
+    <div class="field-label">Background</div>
+    <div class="field-value">41st U.S. Secretary of Commerce. Chairman and CEO of Cantor Fitzgerald and BGC Group. Rebuilt Cantor Fitzgerald after losing 658 employees on 9/11. Named Financial Times Person of the Year 2001.</div>
+  </div>
+  <div class="section-label" style="margin-top:2rem">Moderator Questions</div>
+  <div class="questions-card">
+    <div class="question-item empty">Questions to be added</div>
+  </div>
+</div>
+</body>
+</html>
