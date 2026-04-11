@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Rohan Goswami · WES 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy: #0d1b2a; --navy-mid: #162032; --navy-light: #1c2d40; --gold: #c9a84c; --cream: #f4ede0; --text-light: #d6cfc3; --text-dim: #8a8278; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--navy); color: var(--cream); font-family: 'DM Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1.5rem 4rem; }
+    .container { width: 100%; max-width: 580px; }
+
+    .page-header { margin-bottom: 3rem; animation: fadeUp 0.6s ease both; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 6vw, 2.6rem); font-weight: 700; line-height: 1.1; color: var(--cream); }
+    .subtitle { margin-top: 8px; font-size: 13px; color: var(--text-dim); }
+    .rule { width: 40px; height: 2px; background: var(--gold); margin-top: 20px; }
+
+    .day-group { margin-bottom: 1.5rem; animation: fadeUp 0.5s ease both; }
+    .day-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); padding: 14px 0 10px; border-top: 1px solid rgba(201,168,76,0.2); margin-top: 0.5rem; }
+    .interview-list { display: flex; flex-direction: column; gap: 1px; }
+
+    .interview-card { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.12); padding: 16px 20px; transition: background 0.2s, border-color 0.2s; cursor: pointer; }
+    .interview-card:hover { background: var(--navy-light); border-color: rgba(201,168,76,0.25); }
+    .interview-card:hover .interview-session { color: var(--gold); transition: color 0.2s; }
+    .interview-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .interview-time { font-size: 10px; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; white-space: nowrap; padding-top: 2px; min-width: 110px; }
+    .interview-session { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 400; color: var(--cream); flex: 1; line-height: 1.35; }
+    .interview-location { font-size: 10px; color: var(--text-dim); letter-spacing: 0.06em; margin-bottom: 10px; }
+    .interview-guests { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 10px; }
+    .guest { display: flex; align-items: center; gap: 10px; }
+    .guest-photo { width: 30px; height: 30px; border-radius: 50%; background: var(--navy); border: 1px solid rgba(201,168,76,0.2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gold); font-family: 'Playfair Display', serif; overflow: hidden; }
+    .guest-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .guest-name { font-size: 13px; font-weight: 500; color: var(--cream); line-height: 1.2; }
+    .guest-title { font-size: 11px; color: var(--text-dim); margin-top: 1px; line-height: 1.3; }
+
+    footer { margin-top: 3rem; font-size: 10px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; text-align: center; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <p class="eyebrow">Semafor · World Economy Summit 2026</p>
+    <h1>Rohan Goswami</h1>
+    <p class="subtitle">On-stage interview schedule · April 13–16</p>
+    <div class="rule"></div>
+  </div>
+
+  <!-- MONDAY -->
+  <div class="day-group">
+    <div class="day-label">Monday, April 13</div>
+    <div class="interview-list">
+
+      <div class="interview-card" onclick="location.href='rohan-mon-economics-infra-1.html'" >
+        <div class="interview-top"><div class="interview-time">2:05 – 2:25 PM</div><div class="interview-session">The Economics of Infrastructure</div></div>
+        <div class="interview-location">Compass Stage · Grand C, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">BS</div><div><div class="guest-name">Brett Schulman</div><div class="guest-title">Co-Founder & CEO, CAVA</div></div></div>
+          <div class="guest"><div class="guest-photo">PR</div><div><div class="guest-name">Phil Radford</div><div class="guest-title">President & CEO, Consumer Reports</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-mon-economics-infra-4.html'">
+        <div class="interview-top"><div class="interview-time">3:05 – 3:25 PM</div><div class="interview-session">The Economics of Infrastructure</div></div>
+        <div class="interview-location">Compass Stage · Grand C, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">JL</div><div><div class="guest-name">Jaime Leverton</div><div class="guest-title">CEO, ReserveOne</div></div></div>
+          <div class="guest"><div class="guest-photo">CM</div><div><div class="guest-name">Chris Maurice</div><div class="guest-title">Co-Founder & CEO, Yellow Card</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-mon-intelligent-enterprises-9.html'">
+        <div class="interview-top"><div class="interview-time">3:45 – 4:05 PM</div><div class="interview-session">Building Intelligent Enterprises</div></div>
+        <div class="interview-location">Horizon Stage · Grand D, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">WM</div><div><div class="guest-name">Woodson Martin</div><div class="guest-title">CEO, OutSystems</div></div></div>
+          <div class="guest"><div class="guest-photo">KK</div><div><div class="guest-name">Kunal Kapoor</div><div class="guest-title">CEO, Morningstar</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TUESDAY -->
+  <div class="day-group">
+    <div class="day-label">Tuesday, April 14</div>
+    <div class="interview-list">
+
+      <div class="interview-card" onclick="location.href='rohan-tue-global-growth-11.html'">
+        <div class="interview-top"><div class="interview-time">11:35 – 11:55 AM</div><div class="interview-session">The Next Era of Global Growth</div></div>
+        <div class="interview-location">Compass Stage · Grand C, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">ML</div><div><div class="guest-name">Mark Lashier</div><div class="guest-title">Chairman & CEO, Phillips 66</div></div></div>
+          <div class="guest"><div class="guest-photo">JM</div><div><div class="guest-name">Jeffrey W. Martin</div><div class="guest-title">Chairman & CEO, Sempra</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-tue-global-growth-13.html'">
+        <div class="interview-top"><div class="interview-time">12:10 – 12:25 PM</div><div class="interview-session">The Next Era of Global Growth</div></div>
+        <div class="interview-location">Compass Stage · Grand C, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">JH</div><div><div class="guest-name">Jamie Hodari</div><div class="guest-title">CEO & CCO, CBRE; CEO, Industrious</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-tue-mobility-1.html'">
+        <div class="interview-top"><div class="interview-time">1:35 – 1:50 PM</div><div class="interview-session">The Future of Mobility</div></div>
+        <div class="interview-location">Horizon Stage · Grand D, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">MC</div><div><div class="guest-name">Matthew Cabe</div><div class="guest-title">President & CEO, Michelin North America</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-tue-capitalism-3.html'">
+        <div class="interview-top"><div class="interview-time">2:05 – 2:20 PM</div><div class="interview-session">The Future of Capitalism</div></div>
+        <div class="interview-location">Compass Stage · Grand C, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">AS</div><div><div class="guest-name">Arjun Sethi</div><div class="guest-title">Co-CEO, Kraken and Payward</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-tue-capitalism-5.html'">
+        <div class="interview-top"><div class="interview-time">2:35 – 2:55 PM</div><div class="interview-session">The Future of Capitalism</div></div>
+        <div class="interview-location">Compass Stage · Grand C, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">AS</div><div><div class="guest-name">Anthony Scaramucci</div><div class="guest-title">Founder & Managing Partner, SkyBridge Capital</div></div></div>
+          <div class="guest"><div class="guest-photo">JJ</div><div><div class="guest-name">Jenny Johnson</div><div class="guest-title">CEO, Franklin Templeton</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-tue-economic-change.html'">
+        <div class="interview-top"><div class="interview-time">4:30 – 6:00 PM</div><div class="interview-session">Navigating US Economic Change Exchange</div></div>
+        <div class="interview-location">The Estuary, The Conrad</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">MK</div><div><div class="guest-name">Mike Keough</div><div class="guest-title">President, Provalus</div></div></div>
+          <div class="guest"><div class="guest-photo">AB</div><div><div class="guest-name">Andrejka Bernatova</div><div class="guest-title">CEO, Dynamix</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WEDNESDAY -->
+  <div class="day-group">
+    <div class="day-label">Wednesday, April 15</div>
+    <div class="interview-list">
+
+      <div class="interview-card" onclick="location.href='rohan-wed-human-centered-4.html'">
+        <div class="interview-top"><div class="interview-time">9:55 – 10:10 AM</div><div class="interview-session">Building Human-Centered Business</div></div>
+        <div class="interview-location">Compass Stage · Grand C, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">BO</div><div><div class="guest-name">Brieane Olson</div><div class="guest-title">CEO, Pacsun</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-wed-security-3.html'">
+        <div class="interview-top"><div class="interview-time">10:35 – 10:55 AM</div><div class="interview-session">Security in the Digital Century</div></div>
+        <div class="interview-location">Horizon Stage · Grand D, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">GL</div><div><div class="guest-name">Garrett Langley</div><div class="guest-title">Founder & CEO, Flock Safety</div></div></div>
+          <div class="guest"><div class="guest-photo">MF</div><div><div class="guest-name">Mike Fey</div><div class="guest-title">Co-Founder & CEO, Island</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-wed-security-5.html'">
+        <div class="interview-top"><div class="interview-time">11:15 – 11:30 AM</div><div class="interview-session">Security in the Digital Century</div></div>
+        <div class="interview-location">Horizon Stage · Grand D, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">JG</div><div><div class="guest-name">Justin Grooms</div><div class="guest-title">President, Bolt</div></div></div>
+          <div class="guest"><div class="guest-photo">SC</div><div><div class="guest-name">Sukhinder Singh Cassidy</div><div class="guest-title">CEO, Xero</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-wed-resilient-1.html'">
+        <div class="interview-top"><div class="interview-time">1:35 – 1:50 PM</div><div class="interview-session">Fortifying Resilient Global Systems</div></div>
+        <div class="interview-location">Atlas Stage · Grand A/B, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">CV</div><div><div class="guest-name">Cristóbal Valenzuela</div><div class="guest-title">Co-Founder & Co-CEO, Runway</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-wed-resilient-2.html'">
+        <div class="interview-top"><div class="interview-time">1:50 – 2:10 PM</div><div class="interview-session">Fortifying Resilient Global Systems</div></div>
+        <div class="interview-location">Atlas Stage · Grand A/B, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">KB</div><div><div class="guest-name">Kate Barton</div><div class="guest-title">Global CEO, Dentons</div></div></div>
+          <div class="guest"><div class="guest-photo">JS</div><div><div class="guest-name">Jacob Silverman</div><div class="guest-title">CEO, Kroll</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THURSDAY -->
+  <div class="day-group">
+    <div class="day-label">Thursday, April 16</div>
+    <div class="interview-list">
+
+      <div class="interview-card" onclick="location.href='rohan-thu-opportunities-5.html'">
+        <div class="interview-top"><div class="interview-time">11:10 – 11:30 AM</div><div class="interview-session">Charting the Next Opportunities</div></div>
+        <div class="interview-location">Horizon Stage · Grand D, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">JZ</div><div><div class="guest-name">Jack Zhang</div><div class="guest-title">Co-Founder & CEO, Airwallex</div></div></div>
+          <div class="guest"><div class="guest-photo">LP</div><div><div class="guest-name">Luke Petherbridge</div><div class="guest-title">CEO, Link Logistics</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-thu-opportunities-6.html'">
+        <div class="interview-top"><div class="interview-time">11:35 – 11:55 AM</div><div class="interview-session">Charting the Next Opportunities</div></div>
+        <div class="interview-location">Horizon Stage · Grand D, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">SF</div><div><div class="guest-name">Simon Freakley</div><div class="guest-title">Executive Chairman, AlixPartners</div></div></div>
+          <div class="guest"><div class="guest-photo">RC</div><div><div class="guest-name">Renee Cacchillo</div><div class="guest-title">President & CEO, Safelite</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-thu-tastemakers-4.html'">
+        <div class="interview-top"><div class="interview-time">2:30 – 2:50 PM</div><div class="interview-session">Global Tastemakers, Culture, and Soft Power</div></div>
+        <div class="interview-location">Atlas Stage · Grand A/B, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">LA</div><div><div class="guest-name">Leif Abraham</div><div class="guest-title">Co-CEO and Co-Founder, Public</div></div></div>
+          <div class="guest"><div class="guest-photo">BM</div><div><div class="guest-name">Ben Miller</div><div class="guest-title">Co-Founder & CEO, Fundrise</div></div></div>
+        </div>
+      </div>
+
+      <div class="interview-card" onclick="location.href='rohan-thu-tastemakers-8.html'">
+        <div class="interview-top"><div class="interview-time">3:05 – 3:25 PM</div><div class="interview-session">Global Tastemakers, Culture, and Soft Power</div></div>
+        <div class="interview-location">Atlas Stage · Grand A/B, 2nd Floor</div>
+        <div class="interview-guests">
+          <div class="guest"><div class="guest-photo">CW</div><div><div class="guest-name">Chris Walters</div><div class="guest-title">CEO, Finastra</div></div></div>
+          <div class="guest"><div class="guest-photo">RG</div><div><div class="guest-name">Roham Gharegozlou</div><div class="guest-title">Co-Founder & CEO, Dapper Labs</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>April 2026 &nbsp;·&nbsp; 18 interviews across 4 days</footer>
+
+</div>
+</body>
+</html>
