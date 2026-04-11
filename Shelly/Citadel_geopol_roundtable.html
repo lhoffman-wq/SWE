@@ -193,9 +193,9 @@
     color: var(--gold); margin-bottom: 8px;
   }
   .back .question {
-    font-family: 'Playfair Display', serif;
-    font-style: italic; font-size: 14px;
-    color: var(--cream); line-height: 1.55;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal; font-size: 14.5px;
+    color: var(--cream); line-height: 1.65; font-weight: 400;
   }
   .back .question.empty {
     color: var(--text-dim); font-style: italic; font-size: 13px;
@@ -306,11 +306,28 @@
     opacity: 0; transition: opacity 0.3s;
   }
   .saved-msg.show { opacity: 1; }
+
+  .back-btn {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 12px; color: var(--text-dim);
+    text-decoration: none; letter-spacing: 0.05em;
+    transition: color 0.2s;
+    padding: 4px 0;
+  }
+  .back-btn:hover { color: var(--gold); }
+  .back-btn svg { flex-shrink: 0; }
+
 </style>
 </head>
 <body>
 
 <header>
+  <a class="back-btn" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.5 2.5L4 7l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Back
+  </a>
   <div class="logo">Investing in Geopolitical Competition</div>
   <div style="display:flex;align-items:center;gap:14px;">
     <div class="quiz-toggle" id="quiz-toggle" onclick="toggleQuizMode()" title="Hide names on front">
