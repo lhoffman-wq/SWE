@@ -1,0 +1,90 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Interview with Henry Kravis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0d1b2a;
+      --navy-mid: #162032;
+      --navy-light: #1c2d40;
+      --gold: #c9a84c;
+      --cream: #f4ede0;
+      --text-light: #d6cfc3;
+      --text-dim: #8a8278;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--navy); color: var(--cream); font-family: 'DM Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 2rem 1.5rem 4rem; }
+    .container { width: 100%; max-width: 540px; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; margin-bottom: 1.5rem; transition: color 0.2s; }
+    .back-link:hover { color: var(--gold); }
+
+    .page-header { margin-bottom: 2rem; animation: fadeUp 0.5s ease both; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 5vw, 1.9rem); font-weight: 700; line-height: 1.2; color: var(--cream); }
+    .session-meta { margin-top: 10px; display: flex; flex-direction: column; gap: 3px; }
+    .session-time { font-size: 12px; color: var(--gold); letter-spacing: 0.06em; }
+    .session-location { font-size: 11px; color: var(--text-dim); letter-spacing: 0.05em; }
+    .rule { width: 36px; height: 2px; background: var(--gold); margin-top: 16px; }
+
+    .section-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin: 2rem 0 0.75rem; }
+
+    .guest-card { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); padding: 18px 20px; margin-bottom: 1px; animation: fadeUp 0.5s ease both; }
+    .guest-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .guest-photo { width: 104px; height: 104px; border-radius: 50%; background: var(--navy); border: 2px solid var(--gold); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 26px; color: var(--gold); overflow: hidden; box-shadow: 0 0 0 4px rgba(201,168,76,0.1); }
+    .guest-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .guest-meta { flex: 1; }
+    .guest-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--cream); line-height: 1.2; }
+    .guest-title { font-size: 12px; color: var(--gold); margin-top: 3px; line-height: 1.35; opacity: 0.85; }
+    .field-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+    .field-value { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+    .field-value.placeholder { color: var(--text-dim); font-style: italic; }
+
+    .questions-card { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); padding: 18px 20px; animation: fadeUp 0.5s 0.1s ease both; }
+    .question-item { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-family: 'DM Sans', sans-serif; font-style: normal; font-size: 13px; color: var(--text-light); line-height: 1.65; }
+    .question-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .question-item.empty { color: var(--text-dim); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <a class="back-link" href="index.html">← All sessions</a>
+
+  <div class="page-header">
+    <div class="eyebrow">Wed. April 15</div>
+    <h1>Interview with Henry Kravis</h1>
+    <div class="session-meta">
+      <div class="session-time">9:30 – 10:00 AM</div>
+      <div class="session-location">To be confirmed</div>
+    </div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="section-label">Guest</div>
+
+  <div class="guest-card">
+    <div class="guest-header">
+      <div class="guest-photo"><img src="data:image/png;base64,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" alt="Henry Kravis"></div>
+      <div class="guest-meta">
+        <div class="guest-name">Henry Kravis</div>
+        <div class="guest-title">Co-Founder &amp; Co-Executive Chairman, KKR</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:2rem">Moderator Questions</div>
+  <div class="questions-card">
+    <div class="question-item empty">Questions to be added</div>
+  </div>
+
+</div>
+</body>
+</html>
