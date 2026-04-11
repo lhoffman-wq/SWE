@@ -54,6 +54,7 @@
     /* Interview cards */
     .interview-card { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.12); padding: 16px 20px; transition: background 0.2s, border-color 0.2s; }
     .interview-card:hover { background: var(--navy-light); border-color: rgba(201,168,76,0.25); }
+    .interview-card[onclick]:hover .interview-session { color: var(--gold); transition: color 0.2s; }
     .interview-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
     .interview-time { font-size: 10px; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; white-space: nowrap; padding-top: 2px; min-width: 110px; }
     .interview-session { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 400; color: var(--cream); flex: 1; line-height: 1.35; }
@@ -127,7 +128,7 @@
     <div class="day-label">Monday, April 13</div>
     <div class="interview-list">
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='mon-economics-infrastructure.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">2:25 – 2:45 PM</div>
           <div class="interview-session">The Economics of Infrastructure</div>
@@ -139,7 +140,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='mon-rethinking-global-business.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">3:25 – 3:45 PM</div>
           <div class="interview-session">Rethinking Global Business</div>
@@ -151,7 +152,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='mon-building-intelligent-boehly.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">4:20 – 4:35 PM</div>
           <div class="interview-session">Building Intelligent Enterprises</div>
@@ -162,7 +163,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='mon-building-intelligent-sewing.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">4:35 – 4:50 PM</div>
           <div class="interview-session">Building Intelligent Enterprises</div>
@@ -181,7 +182,7 @@
     <div class="day-label">Tuesday, April 14</div>
     <div class="interview-list">
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='tue-future-global-growth-nassetta.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">9:20 – 9:35 AM</div>
           <div class="interview-session">Future of Global Growth</div>
@@ -192,7 +193,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='tue-future-capitalism-ray.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">3:10 – 3:20 PM</div>
           <div class="interview-session">The Future of Capitalism</div>
@@ -203,7 +204,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='tue-geoeconomics-ai.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">4:00 – 4:20 PM</div>
           <div class="interview-session">The Geoeconomics of AI</div>
@@ -215,7 +216,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='tue-future-global-growth-hassett.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">4:20 – 4:35 PM</div>
           <div class="interview-session">Future of Global Growth</div>
@@ -234,7 +235,7 @@
     <div class="day-label">Wednesday, April 15</div>
     <div class="interview-list">
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='wed-consumer-markets-taylor-britt.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">10:45 – 11:05 AM</div>
           <div class="interview-session">Taking the Pulse of Consumer Markets</div>
@@ -246,7 +247,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='wed-consumer-markets-bravo.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">11:05 – 11:20 AM</div>
           <div class="interview-session">Taking the Pulse of Consumer Markets</div>
@@ -257,7 +258,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='wed-resilient-global-systems.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">2:10 – 2:25 PM</div>
           <div class="interview-session">Fortifying Resilient Global Systems</div>
@@ -268,7 +269,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='wed-next-frontier.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">2:40 – 2:55 PM</div>
           <div class="interview-session">The Next Frontier</div>
@@ -279,7 +280,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='wed-healthcare-transforming.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">3:05 – 3:20 PM</div>
           <div class="interview-session">Healthcare in a Transforming World</div>
@@ -298,7 +299,7 @@
     <div class="day-label">Thursday, April 16</div>
     <div class="interview-list">
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='thu-workforce-tomorrow.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">11:20 – 11:40 AM</div>
           <div class="interview-session">Building the Workforce of Tomorrow</div>
@@ -310,7 +311,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='thu-next-opportunities.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">11:50 AM – 12:05 PM</div>
           <div class="interview-session">Charting the Next Opportunities</div>
@@ -321,7 +322,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='thu-leadership-uncertain-demchak.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">1:35 – 1:55 PM</div>
           <div class="interview-session">Leadership in an Uncertain World</div>
@@ -333,7 +334,7 @@
         </div>
       </div>
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='thu-leadership-uncertain-esposito.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">2:40 – 2:55 PM</div>
           <div class="interview-session">Leadership in an Uncertain World</div>
@@ -352,7 +353,7 @@
     <div class="day-label">Friday, April 17</div>
     <div class="interview-list">
 
-      <div class="interview-card">
+      <div class="interview-card" onclick="location.href='fri-next-era-innovation.html'" style="cursor:pointer">
         <div class="interview-top">
           <div class="interview-time">10:30 – 10:45 AM</div>
           <div class="interview-session">The Next Era of Innovation</div>
