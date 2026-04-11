@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Flashcard Sets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0d1b2a;
+      --navy-mid: #162032;
+      --gold: #c9a84c;
+      --cream: #f4ede0;
+      --text-dim: #8a8278;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--cream);
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-dim);
+      letter-spacing: 0.03em;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin-top: 20px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .card-list li { animation: fadeUp 0.5s ease both; }
+    .card-list li:nth-child(1) { animation-delay: 0.2s; }
+    .card-list li:nth-child(2) { animation-delay: 0.32s; }
+    .card-list li:nth-child(3) { animation-delay: 0.44s; }
+
+    .card-link {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 24px;
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.15);
+      text-decoration: none;
+      color: var(--cream);
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-link::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.25s ease;
+    }
+
+    .card-link:hover {
+      background: rgba(201,168,76,0.08);
+      border-color: rgba(201,168,76,0.4);
+      transform: translateX(4px);
+    }
+
+    .card-link:hover::before { transform: scaleY(1); }
+    .card-link:active { transform: translateX(2px); }
+
+    .card-number {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      min-width: 36px;
+    }
+
+    .card-text { flex: 1; }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--cream);
+    }
+
+    .card-source {
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      opacity: 0.8;
+    }
+
+    .card-arrow {
+      font-size: 16px;
+      color: var(--text-dim);
+      transition: color 0.25s, transform 0.25s;
+    }
+
+    .card-link:hover .card-arrow {
+      color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      animation: fadeUp 0.5s 0.55s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <p class="eyebrow">Semafor · Study Materials</p>
+      <h1>Flashcard Sets</h1>
+      <p class="subtitle">Select a deck to begin reviewing</p>
+      <div class="divider"></div>
+    </header>
+
+    <ul class="card-list">
+      <li>
+        <a class="card-link" href="semaforum.html">
+          <span class="card-number">01 —</span>
+          <div class="card-text">
+            <div class="card-title">Future of Capitalism</div>
+            <div class="card-source">Semaforum</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="card-link" href="bcg-ceos-take-the-lead-on-ai.html">
+          <span class="card-number">02 —</span>
+          <div class="card-text">
+            <div class="card-title">CEOs Take the Lead on AI</div>
+            <div class="card-source">BCG Lunch</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="card-link" href="goldman-outpacing-uncertainty.html">
+          <span class="card-number">03 —</span>
+          <div class="card-text">
+            <div class="card-title">Outpacing Uncertainty</div>
+            <div class="card-source">Goldman Sachs</div>
+          </div>
+          <span class="card-arrow">→</span>
+        </a>
+      </li>
+    </ul>
+
+    <footer>April 2026 &nbsp;·&nbsp; 3 decks available</footer>
+  </div>
+</body>
+</html>
