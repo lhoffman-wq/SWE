@@ -161,6 +161,92 @@
   .admin-close { padding: 13px 20px; background: transparent; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; margin-top: 8px; width: 100%; }
   .saved-msg { color: #7be37b; font-size: 13px; text-align: center; margin-top: 10px; opacity: 0; transition: opacity 0.3s; }
   .saved-msg.show { opacity: 1; }
+
+  .prep-btn {
+    position: fixed; bottom: 28px; right: 20px; z-index: 150;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold); font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .prep-btn:hover { background: rgba(201,168,76,0.25); }
+  .prep-panel {
+    position: fixed; inset: 0; z-index: 400;
+    background: var(--navy);
+    display: none; flex-direction: column; overflow: hidden;
+  }
+  .prep-panel.open { display: flex; }
+  .prep-header {
+    padding: 16px 20px 14px; background: var(--navy-mid);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+  }
+  .prep-header h2 { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--gold); }
+  .prep-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .prep-tab {
+    padding: 6px 13px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    border-radius: 20px; cursor: pointer; border: 1px solid rgba(201,168,76,0.25);
+    color: var(--text-dim); background: none; font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+  }
+  .prep-tab.active { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold); }
+  .prep-close {
+    background: none; border: none; color: var(--text-dim); font-size: 22px;
+    cursor: pointer; padding: 2px 6px; line-height: 1;
+  }
+  .prep-body { flex: 1; overflow-y: auto; padding: 20px; }
+  .attendee-grid { display: flex; flex-direction: column; gap: 18px; }
+  .attendee-row {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 14px; padding: 16px;
+  }
+  .attendee-photo {
+    width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+    border: 2px solid rgba(201,168,76,0.4); background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .attendee-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .att-initials { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); }
+  .attendee-info { flex: 1; min-width: 0; }
+  .attendee-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 2px; }
+  .attendee-title { font-size: 11px; color: var(--gold); letter-spacing: 0.03em; margin-bottom: 10px; line-height: 1.4; }
+  .q-item { margin-bottom: 8px; padding: 10px 12px; background: rgba(255,255,255,0.04); border-left: 2px solid rgba(201,168,76,0.4); border-radius: 0 6px 6px 0; }
+  .q-item:last-child { margin-bottom: 0; }
+  .q-num { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 3px; }
+  .q-text { font-size: 13px; color: var(--text-light); line-height: 1.55; }
+  .ref-section { margin-bottom: 28px; }
+  .ref-section h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--gold); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(201,168,76,0.2); }
+  .ref-section p { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-bottom: 8px; }
+  .group-block { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+  .group-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 6px; }
+  .group-names { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+  .tension-block { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+  .tension-pair { font-size: 13px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+  .tension-note { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+  .act-block { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .act-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 6px; }
+  .act-detail { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+  .pocket-q { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; font-size: 13.5px; color: var(--cream); line-height: 1.6; }
+  .remarks-script { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.25); border-radius: 14px; padding: 24px 26px; margin-bottom: 20px; }
+  .remarks-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(201,168,76,0.15); }
+  .remarks-badge { background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); }
+  .remarks-line { font-size: 15px; color: var(--cream); line-height: 1.85; font-family: 'DM Sans', sans-serif; }
+  .remarks-line .hl { color: var(--gold); font-weight: 500; }
+  .remarks-line .pause { color: var(--text-dim); font-size: 11px; font-style: italic; margin: 0 4px; }
+  .remarks-note { font-size: 12px; color: var(--text-dim); line-height: 1.5; font-style: italic; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(201,168,76,0.1); }
+  .remarks-edit-btn { margin-left: auto; background: none; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); border-radius: 8px; padding: 5px 10px; font-size: 13px; cursor: pointer; transition: all 0.2s; line-height: 1; }
+  .remarks-edit-btn:hover { background: rgba(201,168,76,0.12); }
+  .remarks-textarea { display: none; width: 100%; min-height: 260px; background: rgba(0,0,0,0.2); border: 1px solid rgba(201,168,76,0.35); border-radius: 8px; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.75; padding: 14px 16px; resize: vertical; margin-top: 12px; }
+  .remarks-textarea:focus { outline: none; border-color: var(--gold); }
+  .remarks-edit-actions { display: none; gap: 8px; margin-top: 10px; }
+  .remarks-save-btn { padding: 9px 20px; background: var(--gold); color: var(--navy); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .remarks-cancel-btn { padding: 9px 18px; background: none; color: var(--text-dim); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; }
+  .remarks-saved-msg { font-size: 12px; color: #7be37b; opacity: 0; transition: opacity 0.3s; margin-left: 8px; align-self: center; }
+  .remarks-saved-msg.show { opacity: 1; }
+  .remarks-custom { display: none; }
+  .remarks-custom-line { font-size: 15px; color: var(--cream); line-height: 1.85; margin-top: 10px; font-family: 'DM Sans', sans-serif; white-space: pre-wrap; }
 </style>
 </head>
 <body>
@@ -236,6 +322,90 @@ const PARTICIPANTS = [
 let current = 0;
 let isFlipped = false;
 let questions = {};
+
+const SUGGESTED_QUESTIONS = {
+  'waldron': {
+    q1: 'Goldman sits at the center of global capital flows. From where you sit, is the uncertainty we are living through different in kind from past cycles \u2014 or just louder?',
+    q2: 'What is Goldman\u2019s own posture right now \u2014 leaning in on deal flow and risk-taking, or have you pulled back?'
+  },
+  'azagra': {
+    q1: 'Iberdrola has committed billions to clean energy infrastructure in the US. Tariffs and policy volatility are real. At what point does uncertainty become a reason to pause \u2014 and have you reached it?',
+    q2: 'Energy infrastructure requires 20-year planning horizons. How do you make capital allocation decisions when the policy environment can change in a single executive order?'
+  },
+  'barton': {
+    q1: 'Your research tracks consumer sentiment at scale. What is the gap right now between what CEOs think their customers are feeling \u2014 and what your data actually shows?',
+    q2: 'Consumer spending has been resilient by the numbers but fragile in sentiment. What is holding it together \u2014 and what would break it?'
+  },
+  'conway': {
+    q1: 'You helped engineer the political coalition that is now making the policy decisions this room has to plan around. What are companies consistently getting wrong in how they read this White House?',
+    q2: 'The administration\u2019s economic nationalism has business leaders publicly supportive but privately anxious. How do you navigate that gap?'
+  },
+  'gecht': {
+    q1: 'Logitech is a Swiss company built on global supply chains, selling hardware made largely in Asia. How are you managing that tariff exposure \u2014 and what options does a company your size actually have?',
+    q2: 'You served in Israeli military intelligence and spent 18 years on the Check Point Software board. Is geopolitical risk something you think about differently from most American CEOs?'
+  },
+  'healy': {
+    q1: 'When the macro environment gets volatile, does technology-focused private equity become more attractive as a shelter \u2014 or does uncertainty compress valuations and dry up exits equally?',
+    q2: 'Deal flow has been constrained for a few years. Is the environment finally opening up, or are tariffs and rate uncertainty extending the freeze?'
+  },
+  'johnson': {
+    q1: 'You manage $1.6 trillion for clients around the world. What are institutions asking you right now that they were not asking 18 months ago?',
+    q2: 'Franklin Templeton has been aggressive moving into alternatives and private markets. Does macro uncertainty accelerate that shift \u2014 or complicate it?'
+  },
+  'kravis': {
+    q1: 'You have built KKR through every cycle since the 1970s. How does this moment compare \u2014 and what does experience tell you that the data does not?',
+    q2: 'Private equity has been in a tough fundraising and exit environment. Is this a pause or a structural shift?'
+  },
+  'lazarus': {
+    q1: 'Versant runs CNBC, which basically broadcasts the uncertainty this room is navigating in real time. Does covering volatility give you a different perspective on it as a CEO?',
+    q2: 'Media is being disrupted by streaming and AI simultaneously. Which is the bigger threat to your business model \u2014 and which is the bigger opportunity?'
+  },
+  'lemann': {
+    q1: 'You built 3G Capital on ruthless operational efficiency \u2014 zero-based budgeting, cutting to the bone. In a world where resilience now requires redundancy and supply chain duplication, does that model need to change?',
+    q2: 'You have built global consumer brands through some of the most turbulent markets in the world. What do the CEOs in this room not understand about building businesses through uncertainty?'
+  },
+  'louvet': {
+    q1: 'Aspirational brands tend to be somewhat insulated from macro volatility. But tariffs and supply chain shifts are very real for apparel. How exposed is Ralph Lauren \u2014 and where are you most vulnerable?',
+    q2: 'You spent three decades at P&G before moving into fashion. Does that consumer goods background give you a different lens on how to read \u2014 and respond to \u2014 macro uncertainty?'
+  },
+  'munoz': {
+    q1: 'Hyundai has committed $21 billion to US manufacturing \u2014 including a new plant in Georgia \u2014 partly as a hedge against tariffs. Was that bet paying off, or did the rules change faster than even that investment could keep up with?',
+    q2: 'You are the first non-Korean CEO of a major Korean conglomerate, navigating US-Korea trade relations in real time. What does that vantage point teach you about the gap between political rhetoric and economic reality?'
+  },
+  'oday': {
+    q1: 'Pharma is navigating drug pricing policy, potential import tariffs on medicines, and a new administration\u2019s FDA priorities all at once. Which of those is most disruptive to how you run Gilead?',
+    q2: 'Gilead\u2019s business is genuinely global \u2014 HIV treatment, hepatitis, oncology across multiple continents. How do you think about geopolitical risk when the product you make is a matter of life and death in contested markets?'
+  },
+  'olczak': {
+    q1: 'PMI has made a remarkable pivot from defending tobacco to evangelizing smoke-free alternatives \u2014 navigating regulatory hostility in almost every market simultaneously. What does that teach about managing through policy uncertainty?',
+    q2: 'Your business is subject to some of the most aggressive taxation and regulation in the world across nearly every jurisdiction. Does that make you more resilient to uncertainty \u2014 or just more accustomed to adversity?'
+  },
+  'paulson': {
+    q1: 'You were Treasury Secretary during 2008 \u2014 the last time uncertainty of this magnitude tested the global system. What is the same about this moment, and what worries you that is different?',
+    q2: 'The US-China relationship has been your defining issue since leaving Treasury. Is economic decoupling actually happening \u2014 and what does it mean for the companies in this room?'
+  },
+  'schulman': {
+    q1: 'You built PayPal into a global digital payments platform, then stepped into the Verizon CEO role in October. What surprised you most about the macro environment you walked into?',
+    q2: 'Verizon\u2019s infrastructure \u2014 networks, connectivity \u2014 is increasingly positioned as national security infrastructure. How does that change your relationship with Washington?'
+  },
+  'strazik': {
+    q1: 'Demand for power is exploding \u2014 AI data centers, electrification, reshoring. Can supply actually keep up? And who bears the cost when it cannot?',
+    q2: 'The energy transition was supposed to follow a certain roadmap. Tariffs, permitting battles, and policy reversals have scrambled it. What does the honest timeline look like now?'
+  },
+  'walker': {
+    q1: 'You spent 14 years as a Goldman partner, then rebuilt Neuberger Berman as an independent firm after Lehman collapsed. That is two front-row seats to systemic stress. What is your read on systemic risk right now?',
+    q2: 'Private markets have become central to how Neuberger manages money. Does current uncertainty make illiquid, long-duration assets more attractive \u2014 or are clients asking for more liquidity?'
+  },
+  'walmsley': {
+    q1: 'You ran GSK through Brexit, COVID, patent cliffs, and activist investor pressure \u2014 and left it materially stronger. What is the leadership skill that volatility specifically tests, that you simply cannot develop in a stable environment?',
+    q2: 'You are now on Microsoft\u2019s board. The intersection of AI and healthcare \u2014 diagnostics, drug discovery, patient data \u2014 is one of the most consequential questions of the moment. What do those board conversations actually sound like?'
+  }
+};
+
+for (const [id, qs] of Object.entries(SUGGESTED_QUESTIONS)) {
+  questions[id] = qs.q1;
+}
+
 let quizMode = false;
 
 function toggleQuizMode() {
@@ -366,7 +536,326 @@ async function saveQuestion() {
   setTimeout(() => msg.classList.remove('show'), 2000);
 }
 
+
+function openPrep() {
+  renderAttendeeGrid();
+  document.getElementById('prep-panel').classList.add('open');
+  showPrepTab('remarks', document.querySelector('.prep-tab'));
+}
+function closePrep() {
+  document.getElementById('prep-panel').classList.remove('open');
+}
+function showPrepTab(name, btn) {
+  ['remarks','attendees','groupings','structures','pocket'].forEach(t => {
+    const el = document.getElementById('prep-tab-' + t);
+    if (el) el.style.display = (t === name) ? '' : 'none';
+  });
+  document.querySelectorAll('.prep-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+function renderAttendeeGrid() {
+  const grid = document.getElementById('prep-tab-attendees');
+  if (!grid) return;
+  const rows = PARTICIPANTS.map(p => {
+    const qs = SUGGESTED_QUESTIONS[p.id];
+    if (!qs) return '';
+    const photoHtml = p.photo
+      ? `<img src="data:image/jpeg;base64,${p.photo}" alt="${p.name}">`
+      : `<span class="att-initials">${p.name.split(' ').slice(0,2).map(w=>w[0]).join('')}</span>`;
+    const q2Html = qs.q2 ? `<div class="q-item"><div class="q-num">Q2</div><div class="q-text">${qs.q2}</div></div>` : '';
+    return `<div class="attendee-row">
+      <div class="attendee-photo">${photoHtml}</div>
+      <div class="attendee-info">
+        <div class="attendee-name">${p.name}</div>
+        <div class="attendee-title">${p.title}</div>
+        <div class="q-item"><div class="q-num">Q1</div><div class="q-text">${qs.q1}</div></div>
+        ${q2Html}
+      </div>
+    </div>`;
+  }).join('');
+  grid.innerHTML = rows || '<p style="color:var(--text-dim);">No attendees found.</p>';
+}
+
+const DEFAULT_REMARKS = `The title of today's conversation is "Outpacing Uncertainty" — and I want to sit with that word for just a second, because for most of the companies represented here, the uncertainty isn't abstract. [beat]
+
+We have people making billion-dollar capital allocation decisions — John, Henry, Patrick, Jenny, George — trying to price risk in an environment that keeps repricing itself.
+
+We have companies squarely in the crosshairs of tariffs and trade policy: José just committed $21 billion to US manufacturing at Hyundai; Pedro has billions committed to clean energy infrastructure in this country; Scott is trying to build enough power generation to keep up with exploding demand — and the rules keep changing.
+
+We have healthcare and pharma — Dan O'Day and Emma — navigating drug pricing, AI in medicine, and a new administration's FDA priorities all at once.
+
+And we have two people who've had front-row seats to Washington in very different ways: Kellyanne, who helped build the political coalition that is now making the policies this room has to plan around; and Hank, who was at Treasury the last time global financial architecture was under this kind of stress. [beat]
+
+So: a lot of ground to cover, a lot of perspectives. Let's dig in.`;
+
+let remarksEditMode = false;
+let savedRemarksText = null;
+function loadRemarks() {
+  try { savedRemarksText = localStorage.getItem('moderator_remarks_goldman') || null; } catch(e) {}
+  if (savedRemarksText) renderCustomRemarks(savedRemarksText);
+}
+function renderCustomRemarks(text) {
+  const container = document.getElementById('remarks-custom');
+  if (!container) return;
+  const lines = text.split('\n').filter(l => l.trim());
+  container.innerHTML = lines.map(l =>
+    `<div class="remarks-custom-line">${l.replace(/\[beat\]/g, '<span class="pause">[beat]</span>')}</div>`
+  ).join('');
+  document.querySelectorAll('#prep-tab-remarks .remarks-line').forEach(el => el.style.display = 'none');
+  const tip = document.getElementById('remarks-tip');
+  if (tip) tip.style.display = 'none';
+  container.style.display = 'block';
+}
+function toggleRemarksEdit() {
+  remarksEditMode = !remarksEditMode;
+  const btn = document.getElementById('remarks-edit-btn');
+  const ta = document.getElementById('remarks-textarea');
+  const actions = document.getElementById('remarks-edit-actions');
+  if (remarksEditMode) {
+    ta.value = savedRemarksText || DEFAULT_REMARKS;
+    ta.style.display = 'block';
+    actions.style.display = 'flex';
+    btn.textContent = '\u2715';
+    btn.title = 'Cancel editing';
+    ta.focus();
+  } else {
+    ta.style.display = 'none';
+    actions.style.display = 'none';
+    btn.innerHTML = '&#9998;';
+    btn.title = 'Edit script';
+  }
+}
+function saveRemarks() {
+  const text = document.getElementById('remarks-textarea').value.trim();
+  if (!text) return;
+  savedRemarksText = text;
+  try { localStorage.setItem('moderator_remarks_goldman', text); } catch(e) {}
+  renderCustomRemarks(text);
+  remarksEditMode = false;
+  document.getElementById('remarks-textarea').style.display = 'none';
+  document.getElementById('remarks-edit-actions').style.display = 'none';
+  const btn = document.getElementById('remarks-edit-btn');
+  btn.innerHTML = '&#9998;';
+  btn.title = 'Edit script';
+  const msg = document.getElementById('remarks-saved-msg');
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2000);
+}
+function cancelRemarksEdit() {
+  remarksEditMode = false;
+  document.getElementById('remarks-textarea').style.display = 'none';
+  document.getElementById('remarks-edit-actions').style.display = 'none';
+  const btn = document.getElementById('remarks-edit-btn');
+  btn.innerHTML = '&#9998;';
+  btn.title = 'Edit script';
+}
+
 loadQuestions();
+loadRemarks();
 </script>
+
+<button class="prep-btn" title="Moderator Prep" onclick="openPrep()">&#128203;</button>
+
+<div class="prep-panel" id="prep-panel">
+  <div class="prep-header">
+    <h2>Moderator Prep</h2>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="prep-tabs">
+        <button class="prep-tab active" onclick="showPrepTab('remarks',this)">Remarks</button>
+        <button class="prep-tab" onclick="showPrepTab('attendees',this)">Attendees</button>
+        <button class="prep-tab" onclick="showPrepTab('groupings',this)">Groupings</button>
+        <button class="prep-tab" onclick="showPrepTab('structures',this)">Structures</button>
+        <button class="prep-tab" onclick="showPrepTab('pocket',this)">Back Pocket</button>
+      </div>
+      <button class="prep-close" onclick="closePrep()">&times;</button>
+    </div>
+  </div>
+  <div class="prep-body">
+
+    <!-- Remarks -->
+    <div id="prep-tab-remarks">
+      <div class="ref-section">
+        <h3>Opening Remarks</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:16px;">~45 seconds &mdash; after John Waldron hands off to you</p>
+        <div class="remarks-script">
+          <div class="remarks-meta">
+            <span class="remarks-badge">Script</span>
+            <span style="font-size:12px;color:var(--text-dim);">Deliver conversationally &mdash; feel free to riff</span>
+            <button class="remarks-edit-btn" onclick="toggleRemarksEdit()" id="remarks-edit-btn" title="Edit script">&#9998;</button>
+          </div>
+          <div class="remarks-line">
+            The title of today&rsquo;s conversation is &ldquo;Outpacing Uncertainty&rdquo; &mdash; and I want to sit with that word for just a second, because I think we can be honest in this room: for most of the companies represented here, the uncertainty isn&rsquo;t abstract.
+            <span class="pause">[beat]</span>
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            We have people here making billion-dollar capital allocation decisions &mdash; <span class="hl">John</span>, <span class="hl">Henry</span>, <span class="hl">Patrick</span>, <span class="hl">Jenny</span>, <span class="hl">George</span> &mdash; trying to price risk in an environment that keeps repricing itself.
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            We have companies squarely in the crosshairs of tariffs and trade policy: <span class="hl">Jos&eacute;</span> just committed $21 billion to US manufacturing at Hyundai; <span class="hl">Pedro</span> has billions committed to clean energy infrastructure in this country; <span class="hl">Scott</span> is trying to build enough power generation to keep up with exploding demand &mdash; and the rules keep changing.
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            We have healthcare and pharma &mdash; <span class="hl">Dan O&rsquo;Day</span> and <span class="hl">Emma</span> &mdash; navigating drug pricing, AI in medicine, and a new administration&rsquo;s FDA priorities all at once.
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            And we have two people who&rsquo;ve had front-row seats to Washington in very different ways: <span class="hl">Kellyanne</span>, who helped build the political coalition that is now making the policies this room has to plan around; and <span class="hl">Hank</span>, who was at Treasury the last time global financial architecture was under this kind of stress.
+            <span class="pause">[beat]</span>
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            So: a lot of ground to cover, a lot of perspectives. Let&rsquo;s dig in.
+          </div>
+          <div class="remarks-note" id="remarks-tip">Tip: the [beat] pauses land well when you make eye contact around the table &mdash; let the room feel the weight of the setup before you move into Q1.</div>
+          <div class="remarks-custom" id="remarks-custom"></div>
+          <textarea class="remarks-textarea" id="remarks-textarea" placeholder="Type your remarks here..."></textarea>
+          <div class="remarks-edit-actions" id="remarks-edit-actions">
+            <button class="remarks-save-btn" onclick="saveRemarks()">Save</button>
+            <button class="remarks-cancel-btn" onclick="cancelRemarksEdit()">Cancel</button>
+            <span class="remarks-saved-msg" id="remarks-saved-msg">&#10003; Saved</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendees -->
+    <div id="prep-tab-attendees" class="attendee-grid" style="display:none;"></div>
+
+    <!-- Groupings -->
+    <div id="prep-tab-groupings" style="display:none;">
+      <div class="ref-section">
+        <h3>By Sector</h3>
+        <div class="group-block">
+          <div class="group-label">Capital Allocators &amp; Financial Services</div>
+          <div class="group-names">Waldron (Goldman Sachs) &middot; Kravis (KKR) &middot; Healy (Hellman &amp; Friedman) &middot; Johnson (Franklin Templeton) &middot; Walker (Neuberger Berman) &middot; Lemann (3G Capital / LTS)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Energy &amp; Power</div>
+          <div class="group-names">Azagra (Iberdrola) &middot; Strazik (GE Vernova) &mdash; notably: Iberdrola buys the turbines GE Vernova makes. They&rsquo;re on opposite sides of the same supply chain.</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Healthcare &amp; Pharma</div>
+          <div class="group-names">O&rsquo;Day (Gilead Sciences) &middot; Walmsley (former GSK CEO, now Microsoft board)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Consumer &amp; Retail Brands</div>
+          <div class="group-names">Louvet (Ralph Lauren) &middot; Olczak (PMI) &middot; Lazarus (Versant &mdash; USA, CNBC, E!)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Industrial / Automotive / Hardware</div>
+          <div class="group-names">Mu&ntilde;oz (Hyundai) &middot; Gecht (Logitech)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Policy &amp; Government Lens</div>
+          <div class="group-names">Conway (former WH Senior Counselor, current admin) &middot; Paulson (former Treasury Secretary)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Telecom &amp; Advisory</div>
+          <div class="group-names">Schulman (Verizon, former PayPal) &middot; Barton (BCG)</div>
+        </div>
+      </div>
+
+      <div class="ref-section">
+        <h3>By Relationship to Uncertainty</h3>
+        <div class="group-block">
+          <div class="group-label">Most Exposed to Tariffs &amp; Trade Policy</div>
+          <div class="group-names">Mu&ntilde;oz ($21B US manufacturing commitment) &middot; Azagra (billions in US clean energy infrastructure) &middot; Gecht (Asian supply chains, hardware) &middot; Louvet (global apparel supply chain) &middot; O&rsquo;Day (pharma import tariff risk)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Potential Policy Tailwind</div>
+          <div class="group-names">Strazik (GE Vernova &mdash; power demand explosion from AI data centers) &middot; Schulman (Verizon &mdash; telecom as national security infrastructure)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Non-American Vantage Points</div>
+          <div class="group-names">Azagra (Spain) &middot; Lemann (Brazil/Switzerland) &middot; Mu&ntilde;oz (Spain, leading Korean company) &middot; Louvet (France) &middot; Olczak (Poland) &middot; Walmsley (UK) &middot; Gecht (Israel)</div>
+        </div>
+      </div>
+
+      <div class="ref-section">
+        <h3>Interesting Pairings &amp; Tensions</h3>
+        <div class="tension-block">
+          <div class="tension-pair">Conway &#8596; Paulson</div>
+          <div class="tension-note">She helped build the current political coalition; he was at Treasury the last time global financial architecture was under this kind of stress &mdash; and has been publicly critical of trade policy. Very different reads on Washington.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Azagra (Iberdrola) &#8596; Strazik (GE Vernova)</div>
+          <div class="tension-note">Iberdrola buys GE Vernova&rsquo;s wind turbines. They&rsquo;re on opposite sides of the same supply chain, both trying to outpace the same uncertainty.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Kravis &#8596; Healy</div>
+          <div class="tension-note">Kravis invented private equity; Healy represents its current practice. Different generational reads on whether this environment is a buying opportunity or a structural shift.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">O&rsquo;Day &#8596; Walmsley</div>
+          <div class="tension-note">Both ran major pharma companies; Walmsley just stepped down from GSK. Interesting to play them off each other on AI in drug discovery and where the industry is actually headed.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Mu&ntilde;oz &#8596; Gecht</div>
+          <div class="tension-note">Both running companies with serious tariff exposure, but very different scales and options. Mu&ntilde;oz can build a factory in Georgia; Gecht&rsquo;s Logitech can&rsquo;t easily reshoring hardware manufacturing at margins that work.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Johnson &#8596; Walker</div>
+          <div class="tension-note">Both running large asset managers ($1.6T vs $558B AUM), different ownership structures (Franklin publicly traded, Neuberger employee-owned). Will read the macro environment slightly differently.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Lemann &#8596; Everyone else</div>
+          <div class="tension-note">Built 3G Capital on zero-based budgeting and ruthless efficiency &mdash; the opposite of the redundancy and resilience-building the current environment seems to demand. Worth surfacing directly.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Structures -->
+    <div id="prep-tab-structures" style="display:none;">
+      <div class="ref-section">
+        <h3>Option A: &ldquo;The Three Pressures&rdquo;</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:14px;">Move through technology, policy, and geopolitics in sequence &mdash; use the guidepost questions as the spine.</p>
+        <div class="act-block">
+          <div class="act-label">Opening &middot; 12:00&ndash;12:15 &middot; Framing: which pressure is biggest?</div>
+          <div class="act-detail">Waldron frames the moment from Goldman&rsquo;s seat &rarr; Open to the room: tech disruption, policy shifts, or geopolitical risk &mdash; which is most consequential for your business right now? Pull in Paulson (systemic lens), Conway (policy read), and one industrial CEO (Mu&ntilde;oz or Azagra) to get three different answers fast.</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act II &middot; 12:15&ndash;12:35 &middot; Technology as both threat and opportunity</div>
+          <div class="act-detail">Walmsley (AI + healthcare/biotech) &rarr; Lazarus (media disruption: streaming + AI simultaneously) &rarr; Schulman (connectivity as infrastructure) &rarr; Gecht (hardware at the AI interface) &rarr; Barton: what does BCG&rsquo;s data say about which sectors are actually capturing AI value vs. just talking about it?</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act III &middot; 12:35&ndash;12:50 &middot; The cost of resilience</div>
+          <div class="act-detail">Mu&ntilde;oz and Azagra: capital bets made before rules changed &rarr; Strazik: supply-side constraints (can power generation keep up?) &rarr; O&rsquo;Day and Olczak: regulated industries navigating simultaneous pressures &rarr; Lemann: does the 3G efficiency model need to change? &rarr; Capital allocators close: Kravis, Healy, Johnson, Walker &mdash; where is real opportunity being priced in right now?</div>
+        </div>
+      </div>
+
+      <div class="ref-section">
+        <h3>Option B: &ldquo;From Exposure to Response&rdquo;</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:14px;">Start with who&rsquo;s most exposed, move to how companies are actually responding, land on what capital is doing about it.</p>
+        <div class="act-block">
+          <div class="act-label">Opening &middot; 12:00&ndash;12:15 &middot; The honest exposure map</div>
+          <div class="act-detail">Waldron: what Goldman is seeing across clients &rarr; Challenge the room: on a scale of 1&ndash;10, how much has your actual operating plan changed in the last 90 days? Pull in Mu&ntilde;oz (Hyundai/tariffs), Gecht (hardware supply chains), O&rsquo;Day (pharma), Azagra (energy infrastructure) &mdash; build a real picture of who&rsquo;s most affected.</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act II &middot; 12:15&ndash;12:35 &middot; How are you actually responding?</div>
+          <div class="act-detail">Not the PR answer &mdash; what have you actually changed? Louvet (supply chain + brand); Strazik (power supply buildout); Olczak (PMI&rsquo;s model for navigating hostile regulation everywhere); Schulman (Verizon as national security infrastructure); Conway: what does the White House think it&rsquo;s accomplishing &mdash; and is it working?</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act III &middot; 12:35&ndash;12:50 &middot; Where capital is going</div>
+          <div class="act-detail">Kravis, Healy, Johnson, Walker, Lemann &mdash; what does uncertainty mean for capital deployment? Is this a buying environment or a waiting one? &rarr; Paulson: geopolitical read &mdash; US-China decoupling, is it real and what does it mean for these companies? &rarr; Walmsley close: leadership &mdash; what does this environment specifically demand of CEOs that a stable one doesn&rsquo;t?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back Pocket -->
+    <div id="prep-tab-pocket" style="display:none;">
+      <div class="ref-section">
+        <h3>Back-Pocket Questions</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:16px;">For dead air, one-word answers, or when a topic needs a reset.</p>
+        <div class="pocket-q">Let me make it concrete: what is the single decision you&rsquo;ve delayed or reversed in the last six months because of uncertainty &mdash; and what would need to be true for you to make it?</div>
+        <div class="pocket-q">Who in this room do you think has read this environment most accurately &mdash; and what are they doing that others aren&rsquo;t?</div>
+        <div class="pocket-q">If tariffs are still at current levels in 18 months, what does that mean for your business model? Has anyone actually modeled that scenario?</div>
+        <div class="pocket-q">We keep saying &ldquo;uncertainty.&rdquo; But some people in this room are making money from it. Where is volatility actually creating opportunity?</div>
+        <div class="pocket-q">Is there a version of this story where the US comes out stronger &mdash; more manufacturing, more resilient supply chains, more domestic investment? What would that look like?</div>
+        <div class="pocket-q">What&rsquo;s the question you wish someone would ask you &mdash; the thing you actually want to say but haven&rsquo;t been asked yet?</div>
+        <div class="pocket-q">What&rsquo;s the most important thing you personally changed about how you lead in the last year?</div>
+        <div class="pocket-q" style="border-left: 2px solid rgba(201,168,76,0.7);">&#x1F449; <em style="color:var(--gold);">[To someone quiet]</em> You&rsquo;ve been listening carefully. What&rsquo;s landing wrong for you in this conversation?</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
