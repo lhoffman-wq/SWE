@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Semafor · Climate &amp; Infrastructure Capital · Participant Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #162032;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f4ede0;
+    --text-light: #d6cfc3;
+    --text-dim: #8a8278;
+    --card-h: min(78vh, 560px);
+    --card-w: min(92vw, 400px);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  /* ── Header ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 12px 20px 10px;
+    background: linear-gradient(to bottom, var(--navy) 80%, transparent);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .counter {
+    font-size: 12px; color: var(--text-dim); letter-spacing: 0.05em;
+  }
+
+  /* ── Quiz toggle ── */
+  .quiz-toggle {
+    display: flex; align-items: center; gap: 7px;
+    cursor: pointer; padding: 4px 0;
+  }
+  .quiz-toggle-label {
+    font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-dim);
+    transition: color 0.25s;
+  }
+  .quiz-toggle.active .quiz-toggle-label { color: var(--gold); }
+  .toggle-track {
+    width: 34px; height: 19px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(201,168,76,0.2);
+    position: relative;
+    transition: background 0.25s, border-color 0.25s;
+    flex-shrink: 0;
+  }
+  .quiz-toggle.active .toggle-track {
+    background: rgba(201,168,76,0.25);
+    border-color: var(--gold);
+  }
+  .toggle-thumb {
+    position: absolute; top: 2px; left: 2px;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--text-dim);
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), background 0.25s;
+  }
+  .quiz-toggle.active .toggle-thumb {
+    transform: translateX(15px);
+    background: var(--gold);
+  }
+
+  /* ── Stage ── */
+  .stage {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding-top: 52px; padding-bottom: 80px;
+  }
+
+  /* ── Card ── */
+  .card-scene {
+    width: var(--card-w); height: var(--card-h);
+    perspective: 1200px;
+  }
+  .card {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .card.flipped { transform: rotateY(180deg); }
+
+  .face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  /* ── FRONT ── */
+  .front {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .front .photo-wrap {
+    width: 190px; height: 190px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 0 6px rgba(201,168,76,0.12), 0 20px 60px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+    margin-bottom: 28px;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .front .photo-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .front .initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px; color: var(--gold);
+    line-height: 1;
+  }
+  .front .front-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700;
+    text-align: center; color: var(--cream);
+    padding: 0 24px; line-height: 1.25;
+  }
+  .front .front-org {
+    margin-top: 8px;
+    font-size: 13px; color: var(--gold);
+    text-align: center; padding: 0 24px;
+    letter-spacing: 0.04em;
+  }
+  .front .tap-hint {
+    position: absolute; bottom: 22px;
+    font-size: 11px; color: var(--text-dim);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ── BACK ── */
+  .back {
+    transform: rotateY(180deg);
+    background: linear-gradient(160deg, #1a2a3d 0%, #0f1d2c 100%);
+    border: 1px solid rgba(201,168,76,0.25);
+    display: flex; flex-direction: column;
+    padding: 28px 26px 24px;
+  }
+  .back .back-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-weight: 700;
+    color: var(--cream); line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .back .back-title {
+    font-size: 11.5px; color: var(--gold);
+    line-height: 1.4; letter-spacing: 0.03em;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .back .bio-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-dim); margin-bottom: 6px;
+  }
+  .back .bio {
+    font-size: 13px; line-height: 1.6;
+    color: var(--text-light); flex: 1;
+    overflow-y: auto;
+  }
+  .divider {
+    height: 1px; background: rgba(201,168,76,0.15);
+    margin: 14px 0;
+  }
+  .back .q-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .back .question {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 14.5px;
+    color: var(--cream);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+  .back .question.empty {
+    color: var(--text-dim); font-style: italic; font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .back .tap-hint {
+    margin-top: 10px;
+    font-size: 11px; color: var(--text-dim);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    padding: 16px 24px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to top, var(--navy) 70%, transparent);
+  }
+  .nav-btn {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+    font-size: 22px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-btn:active { background: rgba(201,168,76,0.15); transform: scale(0.93); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+  .progress-track {
+    flex: 1; height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px; margin: 0 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* ── Admin panel ── */
+  .admin-toggle {
+    position: fixed; top: 12px; right: 20px; z-index: 200;
+    background: none; border: none;
+    color: var(--text-dim); font-size: 18px;
+    cursor: pointer; padding: 4px;
+  }
+  .admin-panel {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(13,27,42,0.97);
+    display: none; flex-direction: column;
+    padding: 24px 20px;
+    overflow-y: auto;
+  }
+  .admin-panel.open { display: flex; }
+  .admin-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .admin-panel p {
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 20px; line-height: 1.5;
+  }
+  .admin-row {
+    margin-bottom: 14px;
+  }
+  .admin-row label {
+    display: block; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--gold); margin-bottom: 5px;
+  }
+  .admin-row select, .admin-row textarea {
+    width: 100%;
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--cream); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; padding: 10px 12px;
+  }
+  .admin-row textarea {
+    height: 100px; resize: vertical;
+  }
+  .admin-save {
+    padding: 13px 20px;
+    background: var(--gold); color: var(--navy);
+    border: none; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer; margin-top: 4px;
+    width: 100%;
+  }
+  .admin-close {
+    padding: 13px 20px;
+    background: transparent; color: var(--text-dim);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; cursor: pointer; margin-top: 8px;
+    width: 100%;
+  }
+  .saved-msg {
+    color: #7be37b; font-size: 13px;
+    text-align: center; margin-top: 10px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .saved-msg.show { opacity: 1; }
+
+  /* ── Moderator Prep Panel ── */
+  .prep-btn {
+    position: fixed; bottom: 28px; right: 20px; z-index: 150;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold); font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .prep-btn:hover { background: rgba(201,168,76,0.25); }
+  .prep-panel {
+    position: fixed; inset: 0; z-index: 400;
+    background: var(--navy);
+    display: none; flex-direction: column;
+    overflow: hidden;
+  }
+  .prep-panel.open { display: flex; }
+  .prep-header {
+    padding: 16px 20px 14px;
+    background: var(--navy-mid);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .prep-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--gold);
+  }
+  .prep-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .prep-tab {
+    padding: 6px 13px;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    border-radius: 20px; cursor: pointer;
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--text-dim); background: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .prep-tab.active { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold); }
+  .prep-close {
+    background: none; border: none;
+    color: var(--text-dim); font-size: 22px;
+    cursor: pointer; padding: 2px 6px; line-height: 1;
+  }
+  .prep-body { flex: 1; overflow-y: auto; padding: 20px; }
+  .attendee-grid { display: flex; flex-direction: column; gap: 18px; }
+  .attendee-row {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 14px; padding: 16px;
+  }
+  .attendee-photo {
+    width: 64px; height: 64px; border-radius: 50%;
+    overflow: hidden; flex-shrink: 0;
+    border: 2px solid rgba(201,168,76,0.4);
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .attendee-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .att-initials { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); }
+  .attendee-info { flex: 1; min-width: 0; }
+  .attendee-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 2px; }
+  .attendee-title { font-size: 11px; color: var(--gold); letter-spacing: 0.03em; margin-bottom: 10px; line-height: 1.4; }
+  .q-item { margin-bottom: 8px; padding: 10px 12px; background: rgba(255,255,255,0.04); border-left: 2px solid rgba(201,168,76,0.4); border-radius: 0 6px 6px 0; }
+  .q-item:last-child { margin-bottom: 0; }
+  .q-num { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 3px; }
+  .q-text { font-size: 13px; color: var(--text-light); line-height: 1.55; }
+  .ref-section { margin-bottom: 28px; }
+  .ref-section h3 { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--gold); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(201,168,76,0.2); }
+  .ref-section p { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-bottom: 8px; }
+  .group-block { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+  .group-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 6px; }
+  .group-names { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+  .tension-block { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+  .tension-pair { font-size: 13px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+  .tension-note { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+  .act-block { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .act-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 6px; }
+  .act-title { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+  .act-detail { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+  .pocket-q { background: var(--navy-mid); border: 1px solid rgba(201,168,76,0.15); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; font-size: 13.5px; color: var(--cream); line-height: 1.6; }
+  /* Remarks tab */
+  .remarks-script {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 14px; padding: 24px 26px;
+    margin-bottom: 20px;
+  }
+  .remarks-meta {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .remarks-badge {
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+  .remarks-line {
+    font-size: 15px; color: var(--cream);
+    line-height: 1.85;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .remarks-line .hl { color: var(--gold); font-weight: 500; }
+  .remarks-line .pause { color: var(--text-dim); font-size: 11px; font-style: italic; margin: 0 4px; }
+  .remarks-note { font-size: 12px; color: var(--text-dim); line-height: 1.5; font-style: italic; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(201,168,76,0.1); }
+
+  /* Remarks edit mode */
+  .remarks-edit-btn {
+    margin-left: auto;
+    background: none; border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold); border-radius: 8px;
+    padding: 5px 10px; font-size: 13px; cursor: pointer;
+    transition: all 0.2s; line-height: 1;
+  }
+  .remarks-edit-btn:hover { background: rgba(201,168,76,0.12); }
+  .remarks-textarea {
+    display: none;
+    width: 100%; min-height: 260px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 8px;
+    color: var(--cream); font-family: 'DM Sans', sans-serif;
+    font-size: 14px; line-height: 1.75;
+    padding: 14px 16px; resize: vertical;
+    margin-top: 12px;
+  }
+  .remarks-textarea:focus { outline: none; border-color: var(--gold); }
+  .remarks-edit-actions {
+    display: none;
+    gap: 8px; margin-top: 10px;
+  }
+  .remarks-save-btn {
+    padding: 9px 20px;
+    background: var(--gold); color: var(--navy);
+    border: none; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .remarks-cancel-btn {
+    padding: 9px 18px;
+    background: none; color: var(--text-dim);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; cursor: pointer;
+  }
+  .remarks-saved-msg {
+    font-size: 12px; color: #7be37b;
+    opacity: 0; transition: opacity 0.3s; margin-left: 8px;
+    align-self: center;
+  }
+  .remarks-saved-msg.show { opacity: 1; }
+  .remarks-custom { display: none; }
+  .remarks-custom-line {
+    font-size: 15px; color: var(--cream);
+    line-height: 1.85; margin-top: 10px;
+    font-family: 'DM Sans', sans-serif;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Climate &amp; Infrastructure Capital</div>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="quiz-toggle" id="quiz-toggle" onclick="toggleQuizMode()" title="Hide names on front">
+      <span class="quiz-toggle-label">Quiz</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    </div>
+    <div class="counter" id="counter">1 / 13</div>
+  </div>
+</header>
+
+<div class="stage">
+  <div class="card-scene">
+    <div class="card" id="card">
+      <div class="face front" id="card-front"></div>
+      <div class="face back" id="card-back"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">&larr;</button>
+  <div class="progress-track"><div class="progress-fill" id="progress" style="width:7.7%"></div></div>
+  <button class="nav-btn" id="next-btn" onclick="navigate(1)">&rarr;</button>
+</nav>
+
+<!-- Admin -->
+<button class="admin-toggle" title="Edit questions" onclick="openAdmin()">&#9998;</button>
+
+<div class="admin-panel" id="admin-panel">
+  <h2>Add Questions</h2>
+  <p>Select a participant and enter their question. Questions persist across sessions on this device.</p>
+  <div class="admin-row">
+    <label>Participant</label>
+    <select id="admin-select"></select>
+  </div>
+  <div class="admin-row">
+    <label>Question</label>
+    <textarea id="admin-question" placeholder="Enter the question for this participant…"></textarea>
+  </div>
+  <button class="admin-save" onclick="saveQuestion()">Save Question</button>
+  <button class="admin-close" onclick="closeAdmin()">Done</button>
+  <div class="saved-msg" id="saved-msg">✓ Question saved</div>
+</div>
+
+<script>
+const PARTICIPANTS = [
+  {
+    "id": "mahmoud-adi",
+    "name": "Mahmoud Adi",
+    "title": "Founding Partner, Shorooq",
+    "bio": "Co-founder of Shorooq Partners, one of the most active early-stage venture firms in MENA, with portfolio companies across fintech, software, and platforms in the Gulf, Egypt, and Pakistan. Before Shorooq, Adi built and exited businesses across the region, and he is one of the most-cited voices on what it actually takes to scale a tech business out of the UAE rather than just into it."
+  },
+  {
+    "id": "sachit-ahuja",
+    "name": "Sachit Ahuja",
+    "title": "CEO, Tillman Global Holdings",
+    "bio": "Runs Tillman Global Holdings, the investment platform building digital infrastructure — towers, data centers, fiber — across emerging markets. Tillman is one of the more aggressive private investors connecting Gulf capital to infrastructure assets in Africa, South Asia, and Latin America. Ahuja's vantage is the operating reality of building physical AI/connectivity infrastructure where the grid, the permits, and the demand curves all behave differently than they do in OECD markets."
+  },
+  {
+    "id": "majid-al-suwaidi",
+    "name": "HE Majid Al Suwaidi",
+    "title": "CEO, Alterra",
+    "bio": "Heads Alterra, the $30B climate investment vehicle launched at COP28 — the largest single mobilization of private capital for climate ever announced. Previously served as Director-General of COP28 and as a senior UAE diplomat on climate. Al Suwaidi sits at a unique intersection of state-backed capital, multilateral climate finance, and private market deployment, with a mandate to move climate capital into emerging markets at scale."
+  },
+  {
+    "id": "marc-ganzi",
+    "name": "Marc Ganzi",
+    "title": "CEO, DigitalBridge Group, Inc.",
+    "bio": "CEO of DigitalBridge, one of the largest pure-play digital infrastructure investors in the world, with roughly $90B under management across data centers, towers, fiber, and edge. Ganzi has been one of the most outspoken voices on the AI capex super-cycle and the power, land, and capital constraints behind it. Sold his prior tower platform, Digital Bridge Holdings, into Colony Capital before taking the helm of the combined entity."
+  },
+  {
+    "id": "david-heaton",
+    "name": "David Heaton",
+    "title": "Chairman, Global Asset Management, Morgan Stanley",
+    "bio": "Senior leader of Morgan Stanley's global asset management business, which oversees more than $1.5T across public and private markets including its private credit, infrastructure, and real assets platforms. Heaton's lens is the LP and platform view: how the largest pools of institutional capital are actually allocating across infrastructure, climate, and private markets right now — and what they're saying privately about returns."
+  },
+  {
+    "id": "albert-hill",
+    "name": "Albert Hill",
+    "title": "Co-Founder & Managing Member, Rose Hill Acquisition Corporation",
+    "bio": "Co-founder of Rose Hill Acquisition Corporation, an investment vehicle focused on industrial, infrastructure, and energy-transition assets. Hill brings the operator-investor lens — someone who has had to take public-market discipline to private-market assets, and who thinks carefully about the gap between climate-thematic capital and the gritty industrial businesses that actually decarbonize."
+  },
+  {
+    "id": "christian-jolck",
+    "name": "Christian Jølck",
+    "title": "Co-Founder and Partner, 2150 & UrbanPartners",
+    "bio": "Co-founder of 2150, a European venture firm investing in technology to decarbonize the urban environment — buildings, materials, mobility, infrastructure — and of UrbanPartners, the broader platform spanning venture, growth, and real assets. Jølck is one of the more thoughtful European voices on the convergence of climate tech, the built environment, and infrastructure capital, and on why so much of the climate value chain is physical rather than digital."
+  },
+  {
+    "id": "ted-koenig",
+    "name": "Ted Koenig",
+    "title": "Chairman and CEO, Monroe Capital",
+    "bio": "Founder, chairman, and CEO of Monroe Capital, one of the largest independent private credit managers in the US, with roughly $20B under management. Koenig has been at the center of private credit's boom, lending to middle-market and increasingly to infrastructure and energy-transition borrowers. A vocal commentator on the role of non-bank lenders in funding the build-out the public markets and traditional banks have stepped back from."
+  },
+  {
+    "id": "brooke-milstein",
+    "name": "Brooke Milstein",
+    "title": "Co-Founder And Chief Investment Officer, Milstein Capital Partners",
+    "bio": "Co-founder and CIO of Milstein Capital Partners, the investment arm of one of New York's most established real estate and private capital families. Milstein deploys family-office capital across real estate, infrastructure, and growth equity, with a long-duration horizon that gives her a different vantage than fund managers running on a five-year clock. A useful reset on what permanent capital actually wants from the climate-and-infrastructure trade."
+  },
+  {
+    "id": "robert-morse",
+    "name": "Robert Morse",
+    "title": "Executive Chairman, Bridge Investment Group",
+    "bio": "Executive Chairman of Bridge Investment Group, a $50B+ alternative asset manager spanning real estate, debt, and renewable energy. Previously CEO of Citigroup's Asia institutional business, giving him a rare combination of a US infrastructure manager's bench and a global banker's read on cross-border capital flows. Bridge has been one of the more active platforms on solar, storage, and the unsexy mid-market real-asset deals that the climate-finance narrative tends to skip over."
+  },
+  {
+    "id": "richard-nordell",
+    "name": "Richard Nordell",
+    "title": "Head of Infrastructure, Real Assets, Mubadala Investment Company",
+    "bio": "Leads the infrastructure portfolio inside Mubadala's Real Assets platform, deploying capital from one of the UAE's principal sovereign investors across power, transport, digital infrastructure, and energy transition. Nordell's seat is one of the most consequential infrastructure LP/GP roles in the Gulf — Mubadala is both a direct investor and an anchor in many of the funds and platforms represented at this table."
+  },
+  {
+    "id": "kimberly-petillo-decossard",
+    "name": "Kimberly C. Petillo-Decossard",
+    "title": "Co-Head, Global M&A Practice, White & Case LLP",
+    "bio": "Co-leads White & Case's global M&A practice, advising sponsors, sovereigns, and corporates on cross-border deals — including a meaningful share of the energy-transition, infrastructure, and Gulf-outbound M&A flow. Petillo-Decossard's vantage is the deal table itself: where capital is actually moving, where structures are being stressed by tariffs and CFIUS-style scrutiny, and where the friction lives between climate ambition and antitrust, sanctions, and national-security review."
+  },
+  {
+    "id": "karim-radwan",
+    "name": "Karim Radwan",
+    "title": "Head of Investments, Alterra",
+    "bio": "Heads investments at Alterra, the $30B UAE-anchored climate fund, building out the deployment side of the world's largest dedicated climate vehicle. Radwan and his team are responsible for translating Alterra's mandate — mobilizing private capital into emerging-market climate assets — into actual checks, into actual platforms, and into actual deals alongside the global managers represented around this table."
+  }
+];
+
+let current = 0;
+let isFlipped = false;
+let questions = {};
+
+// Suggested moderator questions (Q1 shown on card back; both shown in prep panel)
+const SUGGESTED_QUESTIONS = {
+  'mahmoud-adi': {
+    q1: 'Most of the capital around this table is allocated by institutions. You\'re writing the smaller, earlier checks into MENA founders. What does the climate-and-infrastructure opportunity actually look like at the seed and Series A stage in this region — and how big is the gap between the fund-level narrative and the founder-level reality?',
+    q2: 'Shorooq has scaled by being early in the Gulf and patient about exits. As Gulf capital pulls more global LPs into the region, does that change your job — or does it change what founders here build for?'
+  },
+  'sachit-ahuja': {
+    q1: 'You\'re building physical infrastructure — towers, data centers, fiber — in markets where the grid, the permits, and the demand curves don\'t look anything like the OECD. What does the AI infrastructure boom look like from where you sit, versus how it gets described in New York and the Gulf?',
+    q2: 'Tillman has been one of the bridges between Gulf capital and emerging-market infrastructure. What does that capital actually want — and what does it not want — and how does that line up with where the assets need to be built?'
+  },
+  'majid-al-suwaidi': {
+    q1: 'Alterra was announced as the largest single mobilization of private climate capital ever. A year and a half on, what does deployment actually look like — and where is the gap between ambition and the deals you can underwrite today?',
+    q2: 'You\'ve sat on both sides of the climate finance equation — multilateral negotiator and now allocator. What do COP processes consistently get wrong about how private capital actually moves?'
+  },
+  'marc-ganzi': {
+    q1: 'Digital infrastructure is the hottest part of infrastructure investing right now, but it\'s also the most power-constrained and most exposed to AI capex assumptions that may or may not hold. Where on that spectrum are you most worried about overbuild — and where are you most worried about underbuild?',
+    q2: 'You\'ve been louder than most on the constraints — power, land, permitting, water. Two years from now, which one is the binding constraint that breaks the AI build-out timeline?'
+  },
+  'david-heaton': {
+    q1: 'You\'re sitting on top of one of the largest pools of institutional capital in the world. What are LPs actually saying privately about infrastructure and climate right now — and how does that compare to what they say in their public allocation targets?',
+    q2: 'Private credit, infrastructure, and real assets have all attracted enormous flows in the last few years. From the platform vantage point, where is the next dislocation — and which of those flows do you think is most likely to disappoint?'
+  },
+  'albert-hill': {
+    q1: 'You sit closer than most around this table to the operating reality of industrial and energy-transition assets. Where is the climate-thematic capital being deployed well, and where is it papering over a business that frankly shouldn\'t be funded?',
+    q2: 'You\'ve been on both sides of the public-private divide. What discipline does the public market impose that climate and infrastructure private capital tends to lose — and is that a feature or a bug right now?'
+  },
+  'christian-jolck': {
+    q1: 'Almost half of global emissions come from the built environment. From where 2150 sits, what\'s the real bottleneck — capital, technology, regulation, or the construction industry\'s appetite to actually adopt anything new?',
+    q2: 'Europe has taken a different path on climate policy than the US or the Gulf. Does that give European founders an advantage on the demand side, a disadvantage on the capital side, or both?'
+  },
+  'ted-koenig': {
+    q1: 'Private credit has stepped into the gap left by the banks, and increasingly into infrastructure and energy-transition lending. Where is private credit\'s role in the climate-and-infrastructure build-out fundamentally healthy — and where is it starting to look like the financial sector taking on risk it doesn\'t fully price?',
+    q2: 'You\'ve been one of the more candid voices on private credit\'s real risk picture. What does the next downturn look like for this asset class, and what does it mean for the infrastructure financing thesis around this table?'
+  },
+  'brooke-milstein': {
+    q1: 'Family capital has a different time horizon than most of the funds at this table. What does that let you do in climate and infrastructure that institutional capital structurally can\'t — and where does it leave you exposed?',
+    q2: 'The Milstein name is associated with New York real estate over multiple cycles. Does any of that intuition translate to the climate-and-infrastructure trade — or is this genuinely a different game?'
+  },
+  'robert-morse': {
+    q1: 'You\'ve run global banking and you now run a real-assets manager. From those two seats, what\'s the most important thing the climate-finance narrative gets wrong about how cross-border capital actually moves — and what would unlock more of it?',
+    q2: 'Bridge has been one of the more active mid-market real-assets platforms in solar, storage, and the unsexy parts of the energy transition. What\'s working in that mid-market that gets missed in the headline numbers?'
+  },
+  'richard-nordell': {
+    q1: 'Mubadala is a sovereign with global reach, and you sit at the seam between direct investing and being an LP in many of the platforms in this room. From that seat, where is sovereign capital genuinely additive — and where does it crowd out the private-market discipline you actually want?',
+    q2: 'The Gulf has gone from being a marginal LP to one of the most consequential infrastructure capital sources globally in a very short time. What does that compress, and what does it distort, in the way infrastructure deals actually get done?'
+  },
+  'kimberly-petillo-decossard': {
+    q1: 'You sit at the deal table on a meaningful share of the cross-border infrastructure and energy-transition flow. Where is friction the highest right now — tariffs, sanctions, CFIUS, antitrust, ESG disclosure — and which one is most likely to actually kill a deal in the next 12 months?',
+    q2: 'A lot of the capital represented here is Gulf-outbound. From a deal-structure perspective, what\'s actually different about doing a 2026 transaction with Gulf sponsors versus, say, a 2018 one — and is the market underpricing or overpricing those changes?'
+  },
+  'karim-radwan': {
+    q1: 'Alterra\'s mandate is to move climate capital into emerging markets. From the deal floor — not the press release — what does the actual underwriting look like, and where is the bottleneck: bankable projects, partner platforms, or political risk?',
+    q2: 'Co-investing alongside the world\'s largest managers is a different muscle than running your own checks. What have you had to push back on — and where have your global GP partners had to adapt to a different return-and-impact bar?'
+  }
+};
+
+// Pre-populate with suggested questions (overridden by saved storage values)
+for (const [id, qs] of Object.entries(SUGGESTED_QUESTIONS)) {
+  questions[id] = qs.q1;
+}
+
+let quizMode = false;
+
+function toggleQuizMode() {
+  quizMode = !quizMode;
+  document.getElementById('quiz-toggle').classList.toggle('active', quizMode);
+  // If card is showing the front, re-render to show/hide name
+  renderCard();
+}
+
+// Load from storage
+async function loadQuestions() {
+  for (const p of PARTICIPANTS) {
+    try {
+      if (window.storage) {
+        const r = await window.storage.get('q_' + p.id);
+        if (r && r.value) questions[p.id] = r.value;
+      } else {
+        const v = localStorage.getItem('q_' + p.id);
+        if (v) questions[p.id] = v;
+      }
+    } catch(e) {}
+  }
+  renderCard();
+}
+
+function getInitials(name) {
+  return name.split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('');
+}
+
+function renderCard() {
+  const p = PARTICIPANTS[current];
+  const q = questions[p.id] || p.question || '';
+
+  // Front
+  const front = document.getElementById('card-front');
+  const photoHtml = p.photo
+    ? `<img src="data:image/jpeg;base64,${p.photo}" alt="${p.name}">`
+    : `<span class="initials">${getInitials(p.name)}</span>`;
+  front.innerHTML = `
+    <div class="photo-wrap">${photoHtml}</div>
+    ${quizMode ? '<div class="front-name" style="color:var(--text-dim);font-style:italic;font-size:15px;letter-spacing:0.05em;">Who is this?</div>' : `<div class="front-name">${p.name}</div><div class="front-org">${p.title}</div>`}
+    <div class="tap-hint">Tap to reveal</div>
+  `;
+
+  // Back
+  const back = document.getElementById('card-back');
+  const qHtml = q
+    ? `<div class="question">${q}</div>`
+    : `<div class="question empty">Question not yet added</div>`;
+  back.innerHTML = `
+    <div class="back-name">${p.name}</div>
+    <div class="back-title">${p.title}</div>
+    <div class="bio-label">Background</div>
+    <div class="bio">${p.bio}</div>
+    <div class="divider"></div>
+    <div class="q-label">Your Question</div>
+    ${qHtml}
+    <div class="tap-hint">↩ Flip back</div>
+  `;
+
+  // Counter & progress
+  document.getElementById('counter').textContent = (current+1) + ' / ' + PARTICIPANTS.length;
+  document.getElementById('progress').style.width = ((current+1)/PARTICIPANTS.length*100) + '%';
+  document.getElementById('prev-btn').disabled = current === 0;
+  document.getElementById('next-btn').disabled = current === PARTICIPANTS.length - 1;
+}
+
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('card').classList.toggle('flipped', isFlipped);
+}
+
+function navigate(dir) {
+  const newIdx = current + dir;
+  if (newIdx < 0 || newIdx >= PARTICIPANTS.length) return;
+  // Flip back if needed
+  if (isFlipped) {
+    isFlipped = false;
+    document.getElementById('card').classList.remove('flipped');
+  }
+  // Slide animation
+  const card = document.getElementById('card');
+  const scene = card.parentElement;
+  scene.style.transform = `translateX(${dir * -60}px)`;
+  scene.style.opacity = '0';
+  scene.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+  setTimeout(() => {
+    current = newIdx;
+    renderCard();
+    scene.style.transition = 'none';
+    scene.style.transform = `translateX(${dir * 60}px)`;
+    scene.style.opacity = '0';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scene.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
+        scene.style.transform = 'translateX(0)';
+        scene.style.opacity = '1';
+      });
+    });
+  }, 180);
+}
+
+// Touch / swipe
+let touchStartX = 0;
+let touchStartY = 0;
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+    navigate(dx < 0 ? 1 : -1);
+  }
+}, { passive: true });
+
+document.getElementById('card').addEventListener('click', flipCard);
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') navigate(1);
+  if (e.key === 'ArrowLeft') navigate(-1);
+  if (e.key === ' ' || e.key === 'Enter') flipCard();
+});
+
+// Admin
+function openAdmin() {
+  const panel = document.getElementById('admin-panel');
+  const sel = document.getElementById('admin-select');
+  sel.innerHTML = PARTICIPANTS.map((p,i) => `<option value="${p.id}">${p.name}</option>`).join('');
+  sel.value = PARTICIPANTS[current].id;
+  sel.dispatchEvent(new Event('change'));
+  panel.classList.add('open');
+}
+function closeAdmin() {
+  document.getElementById('admin-panel').classList.remove('open');
+  renderCard();
+}
+document.getElementById('admin-select').addEventListener('change', function() {
+  const pid = this.value;
+  document.getElementById('admin-question').value = questions[pid] || '';
+});
+async function saveQuestion() {
+  const pid = document.getElementById('admin-select').value;
+  const q = document.getElementById('admin-question').value.trim();
+  questions[pid] = q;
+  try {
+    if (window.storage) {
+      await window.storage.set('q_' + pid, q);
+    } else {
+      localStorage.setItem('q_' + pid, q);
+    }
+  } catch(e) {}
+  const msg = document.getElementById('saved-msg');
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2000);
+}
+
+
+// Moderator Prep Panel
+function openPrep() {
+  renderAttendeeGrid();
+  document.getElementById('prep-panel').classList.add('open');
+  showPrepTab('remarks', document.querySelector('.prep-tab'));
+}
+function closePrep() {
+  document.getElementById('prep-panel').classList.remove('open');
+}
+function showPrepTab(name, btn) {
+  ['remarks','attendees','groupings','structures','pocket'].forEach(t => {
+    const el = document.getElementById('prep-tab-' + t);
+    if (el) el.style.display = (t === name) ? '' : 'none';
+  });
+  document.querySelectorAll('.prep-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+function renderAttendeeGrid() {
+  const grid = document.getElementById('prep-tab-attendees');
+  if (!grid) return;
+  const rows = PARTICIPANTS.map(p => {
+    const qs = SUGGESTED_QUESTIONS[p.id];
+    if (!qs) return '';
+    const photoHtml = p.photo
+      ? `<img src="data:image/jpeg;base64,${p.photo}" alt="${p.name}">`
+      : `<span class="att-initials">${p.name.split(' ').slice(0,2).map(w=>w[0]).join('')}</span>`;
+    const q2Html = qs.q2 ? `<div class="q-item"><div class="q-num">Q2</div><div class="q-text">${qs.q2}</div></div>` : '';
+    return `<div class="attendee-row">
+      <div class="attendee-photo">${photoHtml}</div>
+      <div class="attendee-info">
+        <div class="attendee-name">${p.name}</div>
+        <div class="attendee-title">${p.title}</div>
+        <div class="q-item"><div class="q-num">Q1</div><div class="q-text">${qs.q1}</div></div>
+        ${q2Html}
+      </div>
+    </div>`;
+  }).join('');
+  grid.innerHTML = rows || '<p style="color:var(--text-dim);">No attendees found.</p>';
+}
+
+
+// Remarks editor
+const DEFAULT_REMARKS = `Look around the table — there is probably more deployable climate and infrastructure capital represented in this room than in any single conversation you've been in this year. [beat]
+
+We have the people writing the largest checks: Majid and Karim from Alterra, the $30B vehicle that came out of COP28; Richard from Mubadala; and David from Morgan Stanley, who sits on top of one of the deepest pools of institutional capital in the world.
+
+We have the platform builders — Marc Ganzi, who has become the loudest honest voice on the AI infrastructure capex super-cycle; Bob Morse at Bridge; Ted Koenig, who has watched private credit step into the financing gap the banks left behind.
+
+We have the early-stage and the European climate-tech end of this — Mahmoud from Shorooq, Christian from 2150 — building the supply of companies the rest of you will eventually buy or back.
+
+We have Sachit at Tillman, who is actually putting steel in the ground in the markets the climate narrative talks about and rarely funds.
+
+And we have Brooke, Albert, and Kimberly — family capital, operator capital, and the deal lawyer who sees most of this flow before any of us get to read about it. [beat]
+
+So: a lot of capital, a lot of vantage points, and an honest disagreement waiting to surface about how much of this is real, how much is theater, and where the next dislocation actually shows up. Let's get into it.`;
+
+let remarksEditMode = false;
+let savedRemarksText = null;
+
+function loadRemarks() {
+  try { savedRemarksText = localStorage.getItem('moderator_remarks') || null; } catch(e) {}
+  if (savedRemarksText) renderCustomRemarks(savedRemarksText);
+}
+
+function renderCustomRemarks(text) {
+  const container = document.getElementById('remarks-custom');
+  if (!container) return;
+  const lines = text.split('\n').filter(l => l.trim());
+  container.innerHTML = lines.map(l =>
+    `<div class="remarks-custom-line">${l.replace(/\[beat\]/g, '<span class="pause">[beat]</span>')}</div>`
+  ).join('');
+  // Show custom, hide original lines
+  document.querySelectorAll('#prep-tab-remarks .remarks-line').forEach(el => el.style.display = 'none');
+  const tip = document.getElementById('remarks-tip');
+  if (tip) tip.style.display = 'none';
+  container.style.display = 'block';
+}
+
+function toggleRemarksEdit() {
+  remarksEditMode = !remarksEditMode;
+  const btn = document.getElementById('remarks-edit-btn');
+  const ta = document.getElementById('remarks-textarea');
+  const actions = document.getElementById('remarks-edit-actions');
+  if (remarksEditMode) {
+    ta.value = savedRemarksText || DEFAULT_REMARKS;
+    ta.style.display = 'block';
+    actions.style.display = 'flex';
+    btn.textContent = '✕';
+    btn.title = 'Cancel editing';
+    ta.focus();
+  } else {
+    ta.style.display = 'none';
+    actions.style.display = 'none';
+    btn.innerHTML = '&#9998;';
+    btn.title = 'Edit script';
+  }
+}
+
+function saveRemarks() {
+  const text = document.getElementById('remarks-textarea').value.trim();
+  if (!text) return;
+  savedRemarksText = text;
+  try { localStorage.setItem('moderator_remarks', text); } catch(e) {}
+  renderCustomRemarks(text);
+  // Exit edit mode
+  remarksEditMode = false;
+  document.getElementById('remarks-textarea').style.display = 'none';
+  document.getElementById('remarks-edit-actions').style.display = 'none';
+  const btn = document.getElementById('remarks-edit-btn');
+  btn.innerHTML = '&#9998;';
+  btn.title = 'Edit script';
+  // Flash saved msg
+  const msg = document.getElementById('remarks-saved-msg');
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2000);
+}
+
+function cancelRemarksEdit() {
+  remarksEditMode = false;
+  document.getElementById('remarks-textarea').style.display = 'none';
+  document.getElementById('remarks-edit-actions').style.display = 'none';
+  const btn = document.getElementById('remarks-edit-btn');
+  btn.innerHTML = '&#9998;';
+  btn.title = 'Edit script';
+}
+
+// Init
+loadQuestions();
+loadRemarks();
+</script>
+
+<!-- Moderator Prep Button -->
+<button class="prep-btn" title="Moderator Prep" onclick="openPrep()">&#128203;</button>
+
+<!-- Moderator Prep Panel -->
+<div class="prep-panel" id="prep-panel">
+  <div class="prep-header">
+    <h2>Moderator Prep</h2>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="prep-tabs">
+        <button class="prep-tab active" onclick="showPrepTab('remarks',this)">Remarks</button>
+        <button class="prep-tab" onclick="showPrepTab('attendees',this)">Attendees</button>
+        <button class="prep-tab" onclick="showPrepTab('groupings',this)">Groupings</button>
+        <button class="prep-tab" onclick="showPrepTab('structures',this)">Structures</button>
+        <button class="prep-tab" onclick="showPrepTab('pocket',this)">Back Pocket</button>
+      </div>
+      <button class="prep-close" onclick="closePrep()">&times;</button>
+    </div>
+  </div>
+  <div class="prep-body">
+
+    <!-- TAB: Remarks -->
+    <div id="prep-tab-remarks">
+      <div class="ref-section">
+        <h3>Opening Remarks</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:16px;">~50 seconds &mdash; after the welcome / hand-off</p>
+        <div class="remarks-script">
+          <div class="remarks-meta">
+            <span class="remarks-badge">Script</span>
+            <span style="font-size:12px;color:var(--text-dim);">Deliver conversationally &mdash; feel free to riff</span>
+            <button class="remarks-edit-btn" onclick="toggleRemarksEdit()" id="remarks-edit-btn" title="Edit script">&#9998;</button>
+          </div>
+          <div class="remarks-line">
+            Look around the table &mdash; there is probably more deployable climate and infrastructure capital represented in this room than in any single conversation you&rsquo;ve been in this year.
+            <span class="pause">[beat]</span>
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            We have the people writing the largest checks:
+            <span class="hl">Majid</span> and <span class="hl">Karim</span> from Alterra, the $30B vehicle that came out of COP28;
+            <span class="hl">Richard</span> from Mubadala;
+            and <span class="hl">David</span> from Morgan Stanley, who sits on top of one of the deepest pools of institutional capital in the world.
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            We have the platform builders &mdash;
+            <span class="hl">Marc Ganzi</span>, who has become the loudest honest voice on the AI infrastructure capex super-cycle;
+            <span class="hl">Bob Morse</span> at Bridge;
+            <span class="hl">Ted Koenig</span>, who has watched private credit step into the financing gap the banks left behind.
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            We have the early-stage and the European climate-tech end of this &mdash;
+            <span class="hl">Mahmoud</span> from Shorooq, <span class="hl">Christian</span> from 2150 &mdash;
+            building the supply of companies the rest of you will eventually buy or back.
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            We have <span class="hl">Sachit</span> at Tillman, who is actually putting steel in the ground in the markets the climate narrative talks about and rarely funds.
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            And we have <span class="hl">Brooke</span>, <span class="hl">Albert</span>, and <span class="hl">Kimberly</span> &mdash; family capital, operator capital, and the deal lawyer who sees most of this flow before any of us get to read about it.
+            <span class="pause">[beat]</span>
+          </div>
+          <div class="remarks-line" style="margin-top:12px;">
+            So: a lot of capital, a lot of vantage points, and an honest disagreement waiting to surface about how much of this is real, how much is theater, and where the next dislocation actually shows up. Let&rsquo;s get into it.
+          </div>
+          <div class="remarks-note" id="remarks-tip">Tip: the [beat] pauses are good moments to make eye contact around the table and let the room settle before you move into Q1.</div>
+          <div class="remarks-custom" id="remarks-custom"></div>
+          <textarea class="remarks-textarea" id="remarks-textarea" placeholder="Type your remarks here..."></textarea>
+          <div class="remarks-edit-actions" id="remarks-edit-actions">
+            <button class="remarks-save-btn" onclick="saveRemarks()">Save</button>
+            <button class="remarks-cancel-btn" onclick="cancelRemarksEdit()">Cancel</button>
+            <span class="remarks-saved-msg" id="remarks-saved-msg">&#10003; Saved</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Attendees -->
+    <div id="prep-tab-attendees" class="attendee-grid" style="display:none;"></div>
+
+    <!-- TAB: Groupings -->
+    <div id="prep-tab-groupings" style="display:none;">
+      <div class="ref-section">
+        <h3>By Capital Posture</h3>
+        <div class="group-block">
+          <div class="group-label">Sovereign &amp; Sovereign-Adjacent &mdash; the largest pools</div>
+          <div class="group-names">HE Majid Al Suwaidi (Alterra) &middot; Karim Radwan (Alterra) &middot; Richard Nordell (Mubadala)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Institutional Platforms &amp; Asset Managers</div>
+          <div class="group-names">David Heaton (Morgan Stanley GAM) &middot; Marc Ganzi (DigitalBridge) &middot; Robert Morse (Bridge Investment Group) &middot; Ted Koenig (Monroe Capital)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Venture &amp; Climate-Tech Builders</div>
+          <div class="group-names">Mahmoud Adi (Shorooq, MENA) &middot; Christian J&oslash;lck (2150 / UrbanPartners, Europe)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Operator / Hands-On Capital</div>
+          <div class="group-names">Sachit Ahuja (Tillman Global Holdings &mdash; physical digital infrastructure in EM) &middot; Albert Hill (Rose Hill &mdash; industrial / energy transition)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Family &amp; Permanent Capital</div>
+          <div class="group-names">Brooke Milstein (Milstein Capital Partners) &mdash; family-office vantage; long-duration money</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">The Deal Table</div>
+          <div class="group-names">Kimberly C. Petillo-Decossard (White &amp; Case) &mdash; sees most of the cross-border flow before the rest of the table does</div>
+        </div>
+      </div>
+      <div class="ref-section">
+        <h3>By Theme</h3>
+        <div class="group-block">
+          <div class="group-label">Climate &amp; Energy Transition</div>
+          <div class="group-names">Al Suwaidi &middot; Radwan &middot; J&oslash;lck &middot; Hill &middot; Morse</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Digital / AI Infrastructure</div>
+          <div class="group-names">Ganzi &middot; Ahuja &middot; Nordell (Mubadala digital portfolio) &middot; Heaton (LP exposure)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Capital Stack &amp; Financing</div>
+          <div class="group-names">Koenig (private credit) &middot; Heaton (asset management) &middot; Petillo-Decossard (deal structure) &middot; Milstein (long-duration equity)</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Emerging Markets / Gulf-Outbound</div>
+          <div class="group-names">Adi (MENA VC) &middot; Ahuja (EM digital infra) &middot; Al Suwaidi &amp; Radwan (Alterra EM mandate) &middot; Nordell (Mubadala global) &middot; Petillo-Decossard (cross-border deal structure)</div>
+        </div>
+      </div>
+      <div class="ref-section">
+        <h3>Interesting Pairings &amp; Tensions</h3>
+        <div class="tension-block">
+          <div class="tension-pair">Al Suwaidi / Radwan &#8596; Nordell</div>
+          <div class="tension-note">Two flagship UAE-anchored capital pools sitting side by side. Different mandates &mdash; Alterra is climate-thematic and EM-tilted, Mubadala is generalist and global. Useful to draw out where they overlap, where they don&rsquo;t, and where Gulf capital is actually crowding into the same trades.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Ganzi &#8596; Ahuja</div>
+          <div class="tension-note">Both digital infrastructure operators. Ganzi at OECD scale and on the AI capex front line; Ahuja in the harder, less-funded EM markets. Same thesis, very different unit economics.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Heaton &#8596; Koenig</div>
+          <div class="tension-note">Asset manager vs. private credit specialist. Where the largest LPs are placing the asset class, vs. how the actual lending is being underwritten. Natural debate on private-credit risk pricing.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Adi &#8596; J&oslash;lck</div>
+          <div class="tension-note">Both early-stage climate &amp; tech investors, but in radically different ecosystems &mdash; MENA vs. Northern Europe. Use for a counterpoint on where founders are coming from and what the supply of investable companies actually looks like.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Hill &#8596; Morse</div>
+          <div class="tension-note">Both close to the gritty real-asset and energy-transition end of the trade, at very different scales. Useful to surface where institutional capital is overpaying and where mid-market discipline is still doing the underwriting work.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Petillo-Decossard &#8596; Everyone</div>
+          <div class="tension-note">She sees the friction. Anytime the conversation goes too deal-romantic, pull her in for what is actually killing transactions: tariffs, sanctions, CFIUS, antitrust, sponsor diligence.</div>
+        </div>
+        <div class="tension-block">
+          <div class="tension-pair">Milstein &#8596; the fund managers</div>
+          <div class="tension-note">Family capital with a different clock vs. funds running on a 5- to 7-year cycle. Good reset when the conversation drifts into IRR-speak and away from real assets.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Structures -->
+    <div id="prep-tab-structures" style="display:none;">
+      <div class="ref-section">
+        <h3>Option A: &ldquo;Capital, Constraint, Climate&rdquo;</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:14px;">Follows the capital stack from sovereign down to operator, ending on what is actually getting built.</p>
+        <div class="act-block">
+          <div class="act-label">Opening &middot; ~15 min &middot; Where is the capital actually going?</div>
+          <div class="act-detail">Heaton frames the institutional flows &rarr; Al Suwaidi on Alterra deployment vs. ambition &rarr; Nordell on Mubadala&rsquo;s seat across the stack &rarr; Koenig on private credit&rsquo;s share of the build-out</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act II &middot; ~25 min &middot; The constraints &mdash; physical, political, structural</div>
+          <div class="act-detail">Ganzi on power, land, permitting &rarr; Ahuja on the EM grid and demand-curve reality &rarr; Morse &amp; Hill on mid-market real-asset and industrial bottlenecks &rarr; Petillo-Decossard on the deal-table friction (tariffs, CFIUS, sanctions)</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act III &middot; ~20 min &middot; Where is the next opportunity &mdash; and the next dislocation?</div>
+          <div class="act-detail">J&oslash;lck on the European climate-tech supply &rarr; Adi on MENA founders &rarr; Radwan on what Alterra will actually fund next &rarr; Milstein on long-duration view &rarr; Close with: what does this room get wrong?</div>
+        </div>
+      </div>
+      <div class="ref-section">
+        <h3>Option B: &ldquo;Real vs. Theater&rdquo;</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:14px;">Higher-energy structure. Surfaces the gap between climate-and-AI narratives and what is actually getting underwritten.</p>
+        <div class="act-block">
+          <div class="act-label">Opening &middot; ~15 min &middot; The honest state of the trade</div>
+          <div class="act-detail">Provocation: a lot of capital has been raised; how much has actually been deployed at the prices and on the terms originally pitched? &rarr; Heaton on the LP read &rarr; Koenig on what the credit side is seeing &rarr; Ganzi on which pieces of digital infrastructure are real vs. priced for perfection</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act II &middot; ~25 min &middot; Where is the value, where is the theater?</div>
+          <div class="act-detail">Hill &amp; Morse on industrial and mid-market reality &rarr; Al Suwaidi &amp; Radwan on Alterra&rsquo;s deal funnel (what is actually bankable?) &rarr; Ahuja on EM digital infrastructure economics &rarr; J&oslash;lck on the built environment as the largest underfunded climate trade &rarr; Adi on what regional founders see that the LPs don&rsquo;t</div>
+        </div>
+        <div class="act-block">
+          <div class="act-label">Act III &middot; ~20 min &middot; Friction, governance, what breaks first</div>
+          <div class="act-detail">Petillo-Decossard on what is actually killing deals &rarr; Nordell on sovereign capital&rsquo;s real role &rarr; Milstein on what permanent capital wants &rarr; Close on: 12 months from now, where does the dislocation come from &mdash; AI capex, private credit, climate underwriting, or geopolitics?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Back Pocket -->
+    <div id="prep-tab-pocket" style="display:none;">
+      <div class="ref-section">
+        <h3>Back-Pocket Questions</h3>
+        <p style="color:var(--text-dim);font-size:12px;margin-bottom:16px;">For awkward pauses, one-word answers, or when a topic needs a reset.</p>
+        <div class="pocket-q">If you had to bet your own money &mdash; not your fund&rsquo;s &mdash; on the single most durable infrastructure or climate trade for the next five years, where does it go?</div>
+        <div class="pocket-q">Who in this room is most likely to be proven right on the AI infrastructure build-out &mdash; and who is most likely to be proven wrong?</div>
+        <div class="pocket-q">What&rsquo;s the question about your own portfolio that you&rsquo;re afraid to ask out loud in your IC?</div>
+        <div class="pocket-q">Has anyone here changed their mind about something significant in the last six months &mdash; on climate, on infrastructure, on the Gulf, on private credit?</div>
+        <div class="pocket-q">If the next dislocation comes from this part of the market, what&rsquo;s the tell? What are you watching now that no one else seems to be?</div>
+        <div class="pocket-q">Where is climate capital being deployed honestly, and where is it greenwash dressed up as an asset class?</div>
+        <div class="pocket-q">A meaningful share of the capital around this table is Gulf-anchored. Is the Gulf becoming the marginal price-setter for global infrastructure &mdash; and if so, what does that change?</div>
+        <div class="pocket-q" style="border-left: 2px solid rgba(201,168,76,0.7);">&#x1F449; <em style="color:var(--gold);">[To someone quiet]</em> You&rsquo;ve been listening. What&rsquo;s landing wrong for you in this conversation?</div>
+      </div>
+      <div class="ref-section">
+        <h3>Pronunciation &amp; Style Notes</h3>
+        <div class="group-block">
+          <div class="group-label">Christian J&oslash;lck</div>
+          <div class="group-names">Pronounce: <strong style="color:var(--cream);">YULK</strong> (one syllable, the &oslash; is roughly the &ldquo;u&rdquo; in &ldquo;burn&rdquo;). First name in the Danish way: <strong style="color:var(--cream);">KRIS-tee-an</strong>.</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">HE Majid Al Suwaidi</div>
+          <div class="group-names">&ldquo;HE&rdquo; = His Excellency. On first reference use the full title; thereafter <strong style="color:var(--cream);">Majid</strong> is fine in conversation. Family name <strong style="color:var(--cream);">al-soo-WAY-dee</strong>.</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Kimberly C. Petillo-Decossard</div>
+          <div class="group-names"><strong style="color:var(--cream);">peh-TEE-yo deh-co-SARD</strong>. Hyphenated &mdash; use both names on first reference.</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Sachit Ahuja</div>
+          <div class="group-names"><strong style="color:var(--cream);">SUH-chit ah-HOO-jah</strong>.</div>
+        </div>
+        <div class="group-block">
+          <div class="group-label">Mahmoud Adi</div>
+          <div class="group-names"><strong style="color:var(--cream);">mah-MOOD AH-dee</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
