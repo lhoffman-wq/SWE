@@ -375,6 +375,60 @@
   .attendee-info { flex: 1; min-width: 0; }
   .attendee-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 2px; }
   .attendee-title { font-size: 11px; color: var(--gold); letter-spacing: 0.03em; margin-bottom: 10px; line-height: 1.4; }
+  .name-row { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
+  .name-row .attendee-name { margin-bottom: 0; flex: 1; min-width: 0; transition: color 0.2s, text-decoration-color 0.2s; }
+  .spoken-toggle {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    background: rgba(255,255,255,0.04);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.18s ease;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
+  }
+  .spoken-toggle:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .spoken-toggle .check {
+    color: var(--navy);
+    font-size: 14px; font-weight: 700;
+    opacity: 0; transform: scale(0.5);
+    transition: all 0.18s ease;
+    line-height: 1;
+  }
+  .spoken-toggle.checked {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .spoken-toggle.checked .check { opacity: 1; transform: scale(1); }
+  .attendee-row.spoken { opacity: 0.55; }
+  .attendee-row.spoken .attendee-name {
+    color: var(--text-dim);
+    text-decoration: line-through;
+    text-decoration-color: rgba(201,168,76,0.5);
+    text-decoration-thickness: 1px;
+  }
+  .attendee-row.spoken .attendee-photo { border-color: rgba(201,168,76,0.2); }
+  .spoken-counter {
+    font-size: 11px; color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+    padding: 8px 12px;
+    background: var(--navy-mid);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+  }
+  .spoken-counter .count { color: var(--gold); font-weight: 600; }
+  .spoken-reset {
+    margin-left: 10px;
+    background: none; border: none;
+    color: var(--text-dim); font-size: 11px;
+    cursor: pointer; text-decoration: underline;
+    text-underline-offset: 2px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .spoken-reset:hover { color: var(--gold); }
   .q-item { margin-bottom: 8px; padding: 10px 12px; background: rgba(255,255,255,0.04); border-left: 2px solid rgba(201,168,76,0.4); border-radius: 0 6px 6px 0; }
   .q-item:last-child { margin-bottom: 0; }
   .q-num { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 3px; }
@@ -849,9 +903,34 @@ function showPrepTab(name, btn) {
   document.querySelectorAll('.prep-tab').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 }
+// Spoken / participated state ------------------------------------------------
+let spoken = {};
+function loadSpoken() {
+  try {
+    const raw = localStorage.getItem('spoken_state');
+    if (raw) spoken = JSON.parse(raw) || {};
+  } catch(e) { spoken = {}; }
+}
+function saveSpoken() {
+  try { localStorage.setItem('spoken_state', JSON.stringify(spoken)); } catch(e) {}
+}
+function toggleSpoken(id, ev) {
+  if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+  spoken[id] = !spoken[id];
+  saveSpoken();
+  renderAttendeeGrid();
+}
+function resetSpoken() {
+  spoken = {};
+  saveSpoken();
+  renderAttendeeGrid();
+}
+
 function renderAttendeeGrid() {
   const grid = document.getElementById('prep-tab-attendees');
   if (!grid) return;
+  const total = PARTICIPANTS.filter(p => SUGGESTED_QUESTIONS[p.id]).length;
+  const checked = PARTICIPANTS.filter(p => SUGGESTED_QUESTIONS[p.id] && spoken[p.id]).length;
   const rows = PARTICIPANTS.map(p => {
     const qs = SUGGESTED_QUESTIONS[p.id];
     if (!qs) return '';
@@ -859,17 +938,25 @@ function renderAttendeeGrid() {
       ? `<img src="data:image/jpeg;base64,${p.photo}" alt="${p.name}">`
       : `<span class="att-initials">${p.name.split(' ').slice(0,2).map(w=>w[0]).join('')}</span>`;
     const q2Html = qs.q2 ? `<div class="q-item"><div class="q-num">Q2</div><div class="q-text">${qs.q2}</div></div>` : '';
-    return `<div class="attendee-row">
+    const isSpoken = !!spoken[p.id];
+    const ariaPressed = isSpoken ? 'true' : 'false';
+    return `<div class="attendee-row${isSpoken ? ' spoken' : ''}">
       <div class="attendee-photo">${photoHtml}</div>
       <div class="attendee-info">
-        <div class="attendee-name">${p.name}</div>
+        <div class="name-row">
+          <div class="attendee-name">${p.name}</div>
+          <button class="spoken-toggle${isSpoken ? ' checked' : ''}" onclick="toggleSpoken('${p.id}', event)" aria-pressed="${ariaPressed}" title="${isSpoken ? 'Marked as spoken — click to undo' : 'Mark as spoken'}"><span class="check">&#10003;</span></button>
+        </div>
         <div class="attendee-title">${p.title}</div>
         <div class="q-item"><div class="q-num">Q1</div><div class="q-text">${qs.q1}</div></div>
         ${q2Html}
       </div>
     </div>`;
   }).join('');
-  grid.innerHTML = rows || '<p style="color:var(--text-dim);">No attendees found.</p>';
+  const counterHtml = total > 0
+    ? `<div class="spoken-counter"><span class="count">${checked}</span> of ${total} have spoken${checked > 0 ? `<button class="spoken-reset" onclick="resetSpoken()">reset</button>` : ''}</div>`
+    : '';
+  grid.innerHTML = counterHtml + (rows || '<p style="color:var(--text-dim);">No attendees found.</p>');
 }
 
 
@@ -961,6 +1048,7 @@ function cancelRemarksEdit() {
 // Init
 loadQuestions();
 loadRemarks();
+loadSpoken();
 </script>
 
 <!-- Moderator Prep Button -->
